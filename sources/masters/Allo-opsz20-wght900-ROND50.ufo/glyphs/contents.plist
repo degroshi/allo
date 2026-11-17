@@ -1136,8 +1136,14 @@
     <string>uni012F_.ccmp.glif</string>
     <key>uni021A</key>
     <string>uni021A_.glif</string>
+    <key>uni0400</key>
+    <string>uni0400.glif</string>
     <key>uni0401</key>
     <string>uni0401.glif</string>
+    <key>uni0402</key>
+    <string>uni0402.glif</string>
+    <key>uni0403</key>
+    <string>uni0403.glif</string>
     <key>uni0404</key>
     <string>uni0404.glif</string>
     <key>uni0404.bar</key>
@@ -1154,8 +1160,20 @@
     <string>uni0407.1.glif</string>
     <key>uni0408</key>
     <string>uni0408.glif</string>
+    <key>uni0409</key>
+    <string>uni0409.glif</string>
+    <key>uni040A</key>
+    <string>uni040A_.glif</string>
+    <key>uni040B</key>
+    <string>uni040B_.glif</string>
+    <key>uni040C</key>
+    <string>uni040C_.glif</string>
+    <key>uni040D</key>
+    <string>uni040D_.glif</string>
     <key>uni040E</key>
     <string>uni040E_.glif</string>
+    <key>uni040F</key>
+    <string>uni040F_.glif</string>
     <key>uni0410</key>
     <string>uni0410.glif</string>
     <key>uni0411</key>
@@ -1290,8 +1308,14 @@
     <string>uni044E_.bar.glif</string>
     <key>uni044F</key>
     <string>uni044F_.glif</string>
+    <key>uni0450</key>
+    <string>uni0450.glif</string>
     <key>uni0451</key>
     <string>uni0451.glif</string>
+    <key>uni0452</key>
+    <string>uni0452.glif</string>
+    <key>uni0453</key>
+    <string>uni0453.glif</string>
     <key>uni0454</key>
     <string>uni0454.glif</string>
     <key>uni0454.bar</key>
@@ -1304,8 +1328,20 @@
     <string>uni0457.glif</string>
     <key>uni0458</key>
     <string>uni0458.glif</string>
+    <key>uni0459</key>
+    <string>uni0459.glif</string>
+    <key>uni045A</key>
+    <string>uni045A_.glif</string>
+    <key>uni045B</key>
+    <string>uni045B_.glif</string>
+    <key>uni045C</key>
+    <string>uni045C_.glif</string>
+    <key>uni045D</key>
+    <string>uni045D_.glif</string>
     <key>uni045E</key>
     <string>uni045E_.glif</string>
+    <key>uni045F</key>
+    <string>uni045F_.glif</string>
     <key>uni0490</key>
     <string>uni0490.glif</string>
     <key>uni0491</key>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0453" format="2">
+  <advance width="843"/>
+  <unicode hex="0453"/>
+  <anchor x="325" y="558" name="cross"/>
+  <anchor x="295" y="0" name="cyrtic"/>
+  <anchor x="489" y="1558" name="top"/>
+  <anchor x="494" y="0" name="bottom"/>
+  <outline>
+    <component base="uni0433"/>
+    <component base="acutecomb" xOffset="263"/>
+  </outline>
+</glyph>

@@ -7,7 +7,7 @@ box, and three variable axes and plenty of alternates let you tune its personali
 Allo is optimized for screens and interfaces, with an optical size that adjusts automatically between text and
 display. And it’s packed with big little details: tabular figures, fractions, punctuation that lifts beside capitals,
 arrows that appear when you type them, a host of alternates and symbols, as well as a true oblique in every weight.
-It sets Latin and Cyrillic, including Ukrainian, Russian, Belarusian and Kazakh.
+It sets Latin and Cyrillic, including Ukrainian, Russian, Belarusian, Bulgarian, Serbian, Macedonian and Kazakh.
 
 ### [Type specimen at allo.joshpuckett.me →](https://allo.joshpuckett.me)
 

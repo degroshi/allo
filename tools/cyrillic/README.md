@@ -4,7 +4,8 @@ These scripts add Cyrillic to Allo's UFO masters. They are not needed to build t
 compiles the sources as they are); they record how the Cyrillic outlines were made, so they can be
 remade or extended the same way.
 
-Scope: Ukrainian, Russian, Belarusian (Ў ў) and Kazakh letters, Ѕ ѕ Ј ј, ₸ and ₾ (98 characters).
+Scope: the whole of U+0400–045F (Ukrainian, Russian, Belarusian, Bulgarian, Serbian, Macedonian), Ґ ґ,
+the Kazakh letters, ₸ and ₾ (116 characters).
 
 ## Method
 
@@ -22,17 +23,24 @@ measured here master by master:
    against the Latin.
 
 Allo also redrew a few letters, and the Cyrillic follows those changes: y has a straight tail (so У
-does too), and v, y, M, N and their kin meet in a point where Inter cuts its crotches flat (so И, и
-do too).
+does too), v, y, M, N and their kin meet in a point where Inter cuts its crotches flat (so И, и
+do too), and the ascenders are 50 units taller than Inter's and the descenders 28 shorter (so б ђ ф
+reach as high as b and h, and ф ү reach down as far as p and y).
 
 Each Cyrillic glyph is made one of four ways:
 
 | kind | glyphs | how |
 |---|---|---|
-| component | А В Е З І Ј М Н О Р С Т Х Ѕ Ү а е і ј о р с у х ѕ һ, Ё ё Ї ї Й й Ў ў Ғ ғ Ұ ұ | Allo's own glyphs as components, plus marks on anchors: they match the Latin exactly and follow its changes |
+| component | А В Е З І Ј М Н О Р С Т Х Ѕ Ү а е і ј о р с у х ѕ һ ћ, Ё ё Ѐ ѐ Ї ї Й й Ѝ ѝ Ѓ ѓ Ќ ќ Ў ў Ғ ғ Ұ ұ | Allo's own glyphs as components, plus marks on anchors: they match the Latin exactly and follow its changes |
 | turned | И Я Һ ә | Allo's N and R mirrored, Ч and e turned over, with their rounding |
 | Allo + bar | Є є Ө ө Ю ю, Э э | components of Allo's C c O o I ı plus a bar glyph (`uni0404.bar`, ...), overlapping as Allo's dcroat and Tbar do; Э and э turn C and c round, so they are outlines |
 | Inter | the rest | Inter's outline, overlaps removed, spaced as above, rounded by `rounding.py` |
+
+Where Inter builds a letter from parts that meet differently at different weights, the parts are
+joined the same way at every weight before the overlap is removed: Ђ's and ђ's hooks are moved onto
+the stem they hang from (Inter leaves them a few units short at some weights), and љ's ь is laid on
+л's right stem, so the two share one stem as in њ and Љ (Inter overlaps them by a different amount at
+each weight, and not at all at Thin).
 
 All the ROND masters of a glyph come from one sharp outline and one corner plan, which is made in
 the opsz 14, wght 400 master. So the masters interpolate. opsz 9 is opsz 14 moved 17 units each side

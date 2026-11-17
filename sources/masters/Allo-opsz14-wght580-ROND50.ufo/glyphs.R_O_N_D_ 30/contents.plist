@@ -212,6 +212,10 @@
     <string>two.sups.glif</string>
     <key>u</key>
     <string>u.glif</string>
+    <key>uni0402</key>
+    <string>uni0402.glif</string>
+    <key>uni040B</key>
+    <string>uni040B_.glif</string>
     <key>uni0423</key>
     <string>uni0423.glif</string>
     <key>uni0427</key>
@@ -228,6 +232,8 @@
     <string>uni043C_.glif</string>
     <key>uni044D</key>
     <string>uni044D_.glif</string>
+    <key>uni0452</key>
+    <string>uni0452.glif</string>
     <key>uni04BA</key>
     <string>uni04B_A_.glif</string>
     <key>uni04D8</key>

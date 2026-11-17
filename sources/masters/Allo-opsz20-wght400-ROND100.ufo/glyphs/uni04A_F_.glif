@@ -2,17 +2,17 @@
 <glyph name="uni04AF" format="2">
   <advance width="1096"/>
   <unicode hex="04AF"/>
-  <anchor x="549" y="1097" name="top"/>
-  <anchor x="549" y="0" name="bottom"/>
+  <anchor x="548" y="1097" name="top"/>
+  <anchor x="548" y="0" name="bottom"/>
   <outline>
     <contour>
-      <point x="461.0" y="-379.04877323527904"/>
-      <point x="499.95122676472096" y="-418.0"/>
-      <point x="548.0" y="-418.0" type="curve"/>
-      <point x="548.0" y="-418.0" type="line"/>
-      <point x="596.048773235279" y="-418.0"/>
-      <point x="635.0" y="-379.04877323527904"/>
-      <point x="635.0" y="-331.0" type="curve"/>
+      <point x="461.0" y="-351.04877323527904"/>
+      <point x="499.95122676472096" y="-390.0"/>
+      <point x="548.0" y="-390.0" type="curve"/>
+      <point x="548.0" y="-390.0" type="line"/>
+      <point x="596.048773235279" y="-390.0"/>
+      <point x="635.0" y="-351.04877323527904"/>
+      <point x="635.0" y="-303.0" type="curve"/>
       <point x="635.0" y="-9.0" type="line"/>
       <point x="1014.2367944911883" y="977.9079875464807" type="line"/>
       <point x="1036.296912827431" y="1035.3162013815027"/>
@@ -41,7 +41,7 @@
       <point x="60.77622171625386" y="1034.9799499571302"/>
       <point x="82.92004953006382" y="977.2179840088429" type="curve"/>
       <point x="461.0" y="-9.0" type="line"/>
-      <point x="461.0" y="-331.0" type="line"/>
+      <point x="461.0" y="-303.0" type="line"/>
     </contour>
   </outline>
 </glyph>
