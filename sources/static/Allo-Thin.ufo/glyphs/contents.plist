@@ -1140,8 +1140,6 @@
     <string>uni0401.glif</string>
     <key>uni0404</key>
     <string>uni0404.glif</string>
-    <key>uni0404.bar</key>
-    <string>uni0404.bar.glif</string>
     <key>uni0405</key>
     <string>uni0405.glif</string>
     <key>uni0406</key>
@@ -1218,8 +1216,6 @@
     <string>uni042D_.glif</string>
     <key>uni042E</key>
     <string>uni042E_.glif</string>
-    <key>uni042E.bar</key>
-    <string>uni042E_.bar.glif</string>
     <key>uni042F</key>
     <string>uni042F_.glif</string>
     <key>uni0430</key>
@@ -1286,16 +1282,12 @@
     <string>uni044D_.glif</string>
     <key>uni044E</key>
     <string>uni044E_.glif</string>
-    <key>uni044E.bar</key>
-    <string>uni044E_.bar.glif</string>
     <key>uni044F</key>
     <string>uni044F_.glif</string>
     <key>uni0451</key>
     <string>uni0451.glif</string>
     <key>uni0454</key>
     <string>uni0454.glif</string>
-    <key>uni0454.bar</key>
-    <string>uni0454.bar.glif</string>
     <key>uni0455</key>
     <string>uni0455.glif</string>
     <key>uni0456</key>
@@ -1340,12 +1332,8 @@
     <string>uni04D_9.glif</string>
     <key>uni04E8</key>
     <string>uni04E_8.glif</string>
-    <key>uni04E8.bar</key>
-    <string>uni04E_8.bar.glif</string>
     <key>uni04E9</key>
     <string>uni04E_9.glif</string>
-    <key>uni04E9.bar</key>
-    <string>uni04E_9.bar.glif</string>
     <key>uni20B9</key>
     <string>uni20B_9.glif</string>
     <key>uni20BA</key>

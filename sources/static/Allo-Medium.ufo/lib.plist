@@ -299,7 +299,6 @@
       <string>eth</string>
       <string>uni0401</string>
       <string>uni0404</string>
-      <string>uni0404.bar</string>
       <string>uni0405</string>
       <string>uni0406</string>
       <string>uni0406.1</string>
@@ -338,7 +337,6 @@
       <string>uni042C</string>
       <string>uni042D</string>
       <string>uni042E</string>
-      <string>uni042E.bar</string>
       <string>uni042F</string>
       <string>uni0430</string>
       <string>uni0430.1</string>
@@ -372,11 +370,9 @@
       <string>uni044C</string>
       <string>uni044D</string>
       <string>uni044E</string>
-      <string>uni044E.bar</string>
       <string>uni044F</string>
       <string>uni0451</string>
       <string>uni0454</string>
-      <string>uni0454.bar</string>
       <string>uni0455</string>
       <string>uni0456</string>
       <string>uni0457</string>
@@ -399,9 +395,7 @@
       <string>uni04D8</string>
       <string>uni04D9</string>
       <string>uni04E8</string>
-      <string>uni04E8.bar</string>
       <string>uni04E9</string>
-      <string>uni04E9.bar</string>
       <string>dollar</string>
       <string>cent</string>
       <string>yen</string>

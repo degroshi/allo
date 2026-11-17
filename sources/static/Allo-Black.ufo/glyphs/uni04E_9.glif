@@ -2,10 +2,40 @@
 <glyph name="uni04E9" format="2">
   <advance width="1265"/>
   <unicode hex="04E9"/>
-  <anchor x="632" y="1118" name="top"/>
   <anchor x="632" y="0" name="bottom"/>
+  <anchor x="632" y="1118" name="top"/>
   <outline>
-    <component base="o"/>
-    <component base="uni04E9.bar"/>
+    <contour>
+      <point x="634.0" y="-20.0" type="curve"/>
+      <point x="956.0" y="-20.0"/>
+      <point x="1212.0" y="235.0"/>
+      <point x="1212.0" y="556.0" type="curve"/>
+      <point x="1212.0" y="877.0"/>
+      <point x="956.0" y="1132.0"/>
+      <point x="634.0" y="1132.0" type="curve"/>
+      <point x="311.0" y="1132.0"/>
+      <point x="53.0" y="877.0"/>
+      <point x="53.0" y="556.0" type="curve"/>
+      <point x="53.0" y="235.0"/>
+      <point x="311.0" y="-20.0"/>
+    </contour>
+    <contour>
+      <point x="634.0" y="297.0" type="curve"/>
+      <point x="547.081" y="297.0"/>
+      <point x="474.68" y="373.545"/>
+      <point x="450.565" y="480.0" type="curve"/>
+      <point x="814.54" y="480.0" type="line"/>
+      <point x="790.731" y="373.545"/>
+      <point x="719.294" y="297.0"/>
+    </contour>
+    <contour>
+      <point x="451.297" y="638.0" type="line"/>
+      <point x="476.118" y="741.26"/>
+      <point x="547.944" y="815.0"/>
+      <point x="634.0" y="815.0" type="curve"/>
+      <point x="718.448" y="815.0"/>
+      <point x="789.312" y="741.26"/>
+      <point x="813.818" y="638.0" type="curve"/>
+    </contour>
   </outline>
 </glyph>

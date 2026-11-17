@@ -86,8 +86,9 @@ within half a unit. Where it doesn't, the difference is one of these:
   built on, or over the middle of its outline.
 - **Statics** (`statics.py`). Uprights are cut from the opsz 14, ROND 50 masters. Obliques are the
   sharp upright outline slanted 9° about y 559 and rounded again; where a letter is a Latin one, it is
-  Allo's own oblique. A static is one master, so overlapping contours are merged there
-  (skia-pathops): CoreText draws Ф's CFF outline with the overlap cut out.
+  Allo's own oblique. A static is one master, so letters with overlapping parts (Ф ф я Э э, and the
+  bar letters Є є Ө ө Ю ю) are single merged outlines there (skia-pathops). CoreText draws the CFF
+  overlap of Ф and Ө ө white, though the contours run the right way.
 
 ## Running
 

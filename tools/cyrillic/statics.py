@@ -184,6 +184,38 @@ def oblique_glyphs(wt, upright, oblique_font):
     return out
 
 
+def flatten_bars(glyphs, font):
+    """The upright statics' Є є Ө ө Ю ю as outlines: their bars overlap the bowl, and CoreText draws
+    the overlap of Ө ө (bar ends inside a ring) white in CFF. The variable font keeps the components;
+    a static is one master, so here the letter is decomposed (and merged below), as in the obliques."""
+    out = {}
+    for name, g in glyphs.items():
+        if name.endswith('.bar'):
+            continue  # nothing refers to the bars once the letters are outlines
+        if R.get(name, {}).get('kind') in ('bar', 'yu') and g.components:
+            contours = []
+            for comp in g.components:
+                dx, dy = comp.transformation[4], comp.transformation[5]
+                base = glyphs[comp.baseGlyph] if comp.baseGlyph in glyphs else font[comp.baseGlyph]
+                contours += [[(x + dx, y + dy, t) for x, y, t in c] for c in ufo_glyph_contours_of(base, glyphs, font)]
+            n = to_glyph(name, g.unicodes[0] if g.unicodes else None, contours, g.width,
+                         {a.name: (a.x, a.y) for a in g.anchors})
+            n.lib['public.truetype.overlap'] = True
+            out[name] = n
+        else:
+            out[name] = g
+    return out
+
+
+def ufo_glyph_contours_of(g, glyphs, font):
+    contours = outline(g)
+    for comp in g.components:
+        dx, dy = comp.transformation[4], comp.transformation[5]
+        base = glyphs[comp.baseGlyph] if comp.baseGlyph in glyphs else font[comp.baseGlyph]
+        contours += [[(x + dx, y + dy, t) for x, y, t in c] for c in ufo_glyph_contours_of(base, glyphs, font)]
+    return contours
+
+
 def merged(g):
     """A static font is one master, so overlapping contours (Ф ф я Э э) can be merged: CoreText draws
     Ф's CFF outline with its stem cut out where it crosses the ring, though the contours run right."""
@@ -245,6 +277,8 @@ def main():
             font = ufoLib2.Font.open(path)
             if glyphs is None:
                 glyphs = oblique_glyphs(wt, upright, font)
+            else:
+                glyphs = flatten_bars(glyphs, font)
             glyphs = {n: merged(g) for n, g in glyphs.items()}
             write(font, glyphs)
             font.groups.clear()
