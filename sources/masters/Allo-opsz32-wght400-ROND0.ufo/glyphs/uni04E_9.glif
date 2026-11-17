@@ -2,6 +2,8 @@
 <glyph name="uni04E9" format="2">
   <advance width="1086"/>
   <unicode hex="04E9"/>
+  <anchor x="542" y="1056" name="top"/>
+  <anchor x="542" y="0" name="bottom"/>
   <outline>
     <component base="o"/>
     <component base="uni04E9.bar"/>

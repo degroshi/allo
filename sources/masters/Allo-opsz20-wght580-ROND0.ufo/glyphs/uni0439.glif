@@ -4,6 +4,7 @@
   <unicode hex="0439"/>
   <anchor x="1089" y="0" name="cyrtic"/>
   <anchor x="603" y="1543" name="top"/>
+  <anchor x="603" y="0" name="bottom"/>
   <outline>
     <component base="uni0438"/>
     <component base="brevecomb" xOffset="195"/>

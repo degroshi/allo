@@ -4,7 +4,7 @@ These scripts add Cyrillic to Allo's UFO masters. They are not needed to build t
 compiles the sources as they are); they record how the Cyrillic outlines were made, so they can be
 remade or extended the same way.
 
-Scope: Ukrainian, Russian, Belarusian (Ў ў) and Kazakh letters, Ѕ ѕ Ј ј, ₸ and ₾.
+Scope: Ukrainian, Russian, Belarusian (Ў ў) and Kazakh letters, Ѕ ѕ Ј ј, ₸ and ₾ (98 characters).
 
 ## Method
 
@@ -71,16 +71,37 @@ within half a unit. Where it doesn't, the difference is one of these:
 - the hooked terminals of J and ȷ;
 - some joins at Black, which Allo also corrects with its ROND 10 and 30 layers.
 
+## Kerning, features, statics
+
+- **Kerning** (`kerning.py`). Allo's groups are Inter's, under the same names, and its pair values are
+  Inter's × 0.99. The Cyrillic joins the groups Inter puts it in, so Го kerns as To. Inter's pairs that
+  involve the Cyrillic are added at each master's location and scale.
+- **Features** (`features.py`). Edits every features.fea the same way:
+  - `cyrl` added to the language systems;
+  - Cyrillic capitals in `@CAPS`, so `calt` lifts punctuation beside them;
+  - Cyrillic letters in the classes that ask for letters, and ₸ ₾ among the currency signs;
+  - `ccmp` takes the dot off і/ј before marks;
+  - `ss01` а, and `ss02`/`cv04` І Ї.
+- **Anchors.** Every letter has top and bottom anchors for marks: from Inter, from the Latin it is
+  built on, or over the middle of its outline.
+- **Statics** (`statics.py`). Uprights are cut from the opsz 14, ROND 50 masters. Obliques are the
+  sharp upright outline slanted 9° about y 559 and rounded again; where a letter is a Latin one, it is
+  Allo's own oblique. A static is one master, so overlapping contours are merged there
+  (skia-pathops): CoreText draws Ф's CFF outline with the overlap cut out.
+
 ## Running
 
 ```sh
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt glyphsLib
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt glyphsLib skia-pathops
 git clone --depth 1 --branch v4.1 --filter=blob:none --sparse https://github.com/rsms/inter ../inter-src
 git -C ../inter-src sparse-checkout set --no-cone '/src/*.glyphspackage/'
-.venv/bin/python tools/cyrillic/build_cyrillic.py                # every master
+.venv/bin/python tools/cyrillic/build_cyrillic.py                # every master: glyphs, kerning, features
+.venv/bin/python tools/cyrillic/statics.py                       # the 18 statics, from the masters
 .venv/bin/python tools/cyrillic/build_cyrillic.py --masters 14,400,50 --root /tmp/copy   # a trial on a copy
 .venv/bin/python tools/cyrillic/validate_rounding.py 14 400
 .venv/bin/python tools/cyrillic/specimen.py out.html --font "Regular=fonts/variable/AlloVariable.ttf@'wght' 400"
+.venv/bin/python tools/cyrillic/axes.py fonts/variable/AlloVariable.ttf axes.html   # wght × ROND × opsz sheet
+.venv/bin/python tools/cyrillic/kernsheet.py fonts/variable/AlloVariable.ttf kern.html
 ```
 
 `INTER_SRC` points elsewhere if Inter's sources live somewhere else.

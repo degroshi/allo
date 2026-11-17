@@ -5,6 +5,7 @@
   <anchor x="353" y="549" name="cross"/>
   <anchor x="484" y="0" name="cyrtic"/>
   <anchor x="503" y="1097" name="top"/>
+  <anchor x="418" y="0" name="bottom"/>
   <outline>
     <component base="uni0433"/>
     <component base="crossbar" xOffset="-158" yOffset="-196"/>

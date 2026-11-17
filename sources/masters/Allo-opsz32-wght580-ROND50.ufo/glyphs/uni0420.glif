@@ -5,6 +5,7 @@
   <anchor x="77" y="1490" name="tonos"/>
   <anchor x="609" y="1490" name="top"/>
   <anchor x="103" y="1490" name="topl"/>
+  <anchor x="656" y="0" name="bottom"/>
   <outline>
     <component base="P"/>
   </outline>

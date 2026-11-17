@@ -5,6 +5,7 @@
   <anchor x="722" y="671" name="cross"/>
   <anchor x="1352" y="0" name="cyrtic"/>
   <anchor x="723" y="1490" name="top"/>
+  <anchor x="722" y="0" name="bottom"/>
   <outline>
     <contour>
       <point x="644" y="504" type="curve"/>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0422" format="2">
+  <advance width="1299"/>
+  <unicode hex="0422"/>
+  <anchor x="650" y="0" name="bottom"/>
+  <anchor x="759" y="0" name="bottomr"/>
+  <anchor x="652" y="0" name="cedilla"/>
+  <anchor x="654" y="746" name="cross"/>
+  <anchor x="763" y="0" name="cyrtic"/>
+  <anchor x="714" y="0" name="right"/>
+  <anchor x="650" y="1490" name="top"/>
+  <outline>
+    <component base="T"/>
+  </outline>
+</glyph>

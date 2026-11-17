@@ -7,6 +7,7 @@ box, and three variable axes and plenty of alternates let you tune its personali
 Allo is optimized for screens and interfaces, with an optical size that adjusts automatically between text and
 display. And it’s packed with big little details: tabular figures, fractions, punctuation that lifts beside capitals,
 arrows that appear when you type them, a host of alternates and symbols, as well as a true oblique in every weight.
+It sets Latin and Cyrillic, including Ukrainian, Russian, Belarusian and Kazakh.
 
 ### [Type specimen at allo.joshpuckett.me →](https://allo.joshpuckett.me)
 
@@ -86,8 +87,8 @@ the variable font at opsz 14, ROND 50.
 
 | Feature | Effect |
 |---|---|
-| `ss01` Single-story a | ɑ-shaped a |
-| `ss02` Disambiguation | Serifed I, tailed l, footed 1, slashed zero |
+| `ss01` Single-story a | ɑ-shaped a (and Cyrillic а) |
+| `ss02` Disambiguation | Serifed I (and І Ї), tailed l, footed 1, slashed zero |
 | `ss03` Open figures | Open 4, 6 and 9 |
 | `cv01`–`cv04` | Footed 1, slashed zero, tailed l, serifed I, separately |
 | `cv05` | Dotted zero |
@@ -138,3 +139,7 @@ Inter and releasing it under an open license; without it, Allo would not exist.
 
 Allo also pays homage to Honk Sans by [Seb McLauchlan](https://www.sebmclauchlan.com) and aims to bring some of that
 same warmth and fun to everyone.
+
+Allo's Cyrillic was added in 2026 by [Degroshi](https://github.com/degroshi), from Inter's Cyrillic: weighted, spaced
+and rounded the way Allo's Latin is, in every master, with the letters Cyrillic shares with Latin taken from Allo
+itself. [`tools/cyrillic`](tools/cyrillic) has the scripts and how they work.

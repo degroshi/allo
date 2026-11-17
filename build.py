@@ -260,7 +260,7 @@ ZIP_README = '''
 
 
   FEATURES
-    ss01   Single-story a       a, and its accented forms
+    ss01   Single-story a       a, its accented forms, Cyrillic а
     ss02   Disambiguation       I l 1 0  →  serifed I, tailed l,
                                 footed 1, slashed zero
     ss03   Open figures         4 6 9 with open forms
@@ -286,11 +286,12 @@ ZIP_README = '''
     Letter-spacing turns ligatures off in most browsers.
 
 
-  CHARACTERS  (576)
+  CHARACTERS  (674)
     Latin        249 letters: A–Z a–z, accented forms, ẞ ß Æ æ Œ œ
+    Cyrillic     96 letters: А–Я а–я, Ґ Є І Ї Ё Ў Ѕ Ј, Ә Ғ Қ Ң Ө Ұ Ү Һ
     Figures      0–9  ⁰¹²³⁴⁵⁶⁷⁸⁹  ₀₁₂₃₄₅₆₇₈₉  ½ ⅓ ¼ ⅔ ¾ ⅛ ⅜ ⅝ ⅞
     Punctuation  ! ? ¡ ¿ … · • † ‡ § ¶ ‘ ’ “ ” « » ‹ › ‐ – — ‒
-    Currency     $ ¢ £ ¥ € ₹ ₩ ₽ ₺ ₪ ฿ ₫ ₴ ₦ ₱ ₿ ƒ
+    Currency     $ ¢ £ ¥ € ₹ ₩ ₽ ₺ ₪ ฿ ₫ ₴ ₸ ₾ ₦ ₱ ₿ ƒ
     Math         + − × ÷ = ≠ ≈ < > ≤ ≥ ± ∞ ¬ ° ′ ″ ‰ № ℃ ℉
     Arrows       ← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙ ⇐ ⇒ ⇔ ↩ ↵ ↻ ↺
     Keys         ⌘ ⌥ ⇧ ⌃ ⎋ ⇥ ⌫ ⌦ ⏎ ␣ ⌕

@@ -29,6 +29,7 @@ from ufoLib2.objects import Anchor, Component, Contour, Glyph, Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from allo import ROOT, masters as designspace_masters, radius  # noqa: E402
+import kerning  # noqa: E402
 from inter import Inter, reverse_contour  # noqa: E402
 from outline import align, find_crotches, point_crotches, union  # noqa: E402
 from rounding import (ink_sign, plan_glyph, round_glyph, straighten_spurs, to_cubic, unround,  # noqa: E402
@@ -442,6 +443,9 @@ class Builder:
             self.plans[name] = plan_glyph(ref_contours, self.ref.stem)
             for p in self.plans[name]:
                 p['bend_cap'] = spec.get('bend_cap', False)
+            if spec.get('union') is False:  # overlapping parts: no fillets where one is inside another
+                for i, (p, c) in enumerate(zip(self.plans[name], ref_contours)):
+                    hide([p], [c], [d for j, d in enumerate(ref_contours) if j != i])
         return self.plans[name]
 
     def build_master(self, m, ronds):
@@ -523,7 +527,35 @@ class Builder:
                 self.build_pair(m, name, spec, ronds, out)
             elif kind == 'yu':
                 self.build_yu(m, name, spec, ronds, out)
+        self.anchor(m, out)
         return out
+
+    def anchor(self, m, out):
+        """Every Cyrillic letter takes marks: where a recipe gave it no top or bottom anchor, they go
+        over the middle of its outline, at the x-height or cap height and on the baseline."""
+        for name, by_rond in out.items():
+            spec = R.get(name)
+            if not spec or not spec.get('uni') or not chr(spec['uni']).isalpha():
+                continue
+            for r, g in by_rond.items():
+                have = {a.name for a in g.anchors}
+                if {'top', 'bottom'} <= have:
+                    continue
+                contours = self.decompose(m, r, g, out)
+                x0, _, x1, _ = bbox(contours)
+                x = round((x0 + x1) / 2)
+                if 'top' not in have:
+                    g.anchors.append(Anchor(x, m.cap if chr(spec['uni']).isupper() else m.xheight, 'top'))
+                if 'bottom' not in have:
+                    g.anchors.append(Anchor(x, 0, 'bottom'))
+
+    def decompose(self, m, r, g, out):
+        contours = [[(p.x, p.y, p.type) for p in c.points] for c in g.contours]
+        for comp in g.components:
+            dx, dy = comp.transformation[4], comp.transformation[5]
+            base = out[comp.baseGlyph][r] if comp.baseGlyph in out and r in out[comp.baseGlyph] else m.source(r)[comp.baseGlyph]
+            contours += shift(self.decompose(m, r, base, out), dx, dy)
+        return contours
 
     # -- glyphs from Allo's glyph plus parts of Inter's drawing ----------------------------------
 
@@ -731,6 +763,24 @@ def write(font, glyphs, order_after='eth'):
             ps[n] = p
 
 
+COPYRIGHT = ('Copyright 2026 Josh Puckett (https://joshpuckett.me). Copyright 2026 Degroshi '
+             '(https://github.com/degroshi). Portions Copyright (c) 2016 The Inter Project Authors '
+             '(https://github.com/rsms/inter)')
+
+
+def finish(font):
+    """The features and copyright that go with the Cyrillic."""
+    import features
+    enc = [(n, s['uni']) for n, s in R.items() if s.get('uni')]
+    font.features.text = features.update(
+        font.features.text,
+        caps=[n for n, u in enc if chr(u).isupper()],
+        letters=[n for n, u in enc if chr(u).isalpha()] + [n for n in R if not R[n].get('uni')],
+        lower=[n for n, u in enc if chr(u).islower()],
+        currency=[n for n, u in enc if not chr(u).isalpha()])
+    font.info.copyright = COPYRIGHT
+
+
 def main():
     import json
     ap = argparse.ArgumentParser()
@@ -743,16 +793,28 @@ def main():
     inter = Inter()
     masters, small = load_masters(inter, wanted, root)
     b = Builder(masters)
+    any_font = next(iter(masters.values())).fonts[0]
+    latin_groups = {g: [n for n in v if not kerning.OURS.match(n)] for g, v in any_font.groups.items()}
+    group_plan = kerning.group_plan(inter, R, latin_groups)
     for (opsz, wght), m in sorted(masters.items(), key=lambda kv: kv[0] != REF):
         ronds = sorted(r for r in list(m.fonts) + list(m.sparse)
                        if wanted is None or (opsz, wght, r) in wanted or (9, wght, r) in wanted)
         print(f'opsz {opsz} wght {wght}: Inter wght {m.loc["wght"]}, R {m.R:.2f}, stem {m.stem:.1f}', flush=True)
         made = b.build_master(m, ronds)
+        pairs = None
         for r in ronds:
             if r in m.sparse:
                 continue
             if wanted is None or (opsz, wght, r) in wanted:
-                write(m.fonts[r], {n: made[n][r] for n in made if r in made[n]})
+                font = m.fonts[r]
+                write(font, {n: made[n][r] for n in made if r in made[n]})
+                kerning.apply_groups(font, group_plan)
+                cyr = kerning.cyrillic_only(font)
+                if pairs is None:
+                    pairs, ratio = kerning.cyrillic_pairs(inter, R, m.loc, font, cyr)
+                    print(f'  kerning: {len(pairs)} Cyrillic pairs (Allo/Inter {ratio:.3f})', flush=True)
+                kerning.apply_pairs(font, pairs, cyr)
+                finish(font)
         for r, layer_name in m.sparse.items():
             if r not in ronds:
                 continue
@@ -773,6 +835,9 @@ def main():
                     here = {n: made[n][r] for n in made if r in made[n]}
                     widths.update({n: g.width for n, g in here.items()})
                     write(font, {n: shifted(g, small_shift, widths) for n, g in here.items()})
+                    kerning.apply_groups(font, group_plan)
+                    kerning.apply_pairs(font, pairs, kerning.cyrillic_only(font))
+                    finish(font)
                     font.save(overwrite=True)
                     print(f'  opsz 9 wght {wght} ROND {r}: opsz 14 moved {small_shift} each side', flush=True)
 

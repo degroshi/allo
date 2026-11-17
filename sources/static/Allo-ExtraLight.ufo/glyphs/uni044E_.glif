@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni044E" format="2">
+  <advance width="1675"/>
+  <unicode hex="044E"/>
+  <anchor x="869" y="1118" name="top"/>
+  <anchor x="869" y="0" name="bottom"/>
+  <outline>
+    <component base="idotless"/>
+    <component base="o" xOffset="489"/>
+    <component base="uni044E.bar"/>
+  </outline>
+</glyph>

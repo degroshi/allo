@@ -277,6 +277,8 @@
     <dict>
       <key>public.kern2.A</key>
       <integer>-52</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-68</integer>
       <key>public.kern2.T</key>
       <integer>-160</integer>
       <key>public.kern2.V</key>
@@ -292,6 +294,12 @@
       <key>public.kern2.quotedblleft</key>
       <integer>-195</integer>
       <key>public.kern2.seven</key>
+      <integer>-149</integer>
+      <key>tenge</key>
+      <integer>-149</integer>
+      <key>uni0416</key>
+      <integer>-103</integer>
+      <key>uni042A</key>
       <integer>-149</integer>
     </dict>
     <key>greater.case</key>
@@ -467,6 +475,8 @@
       <integer>-181</integer>
       <key>public.kern2.bullet</key>
       <integer>-68</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-141</integer>
       <key>public.kern2.dagger</key>
       <integer>-149</integer>
       <key>public.kern2.eight.sups</key>
@@ -511,6 +521,8 @@
       <integer>-138</integer>
       <key>public.kern2.w</key>
       <integer>-138</integer>
+      <key>tenge</key>
+      <integer>-103</integer>
     </dict>
     <key>public.kern1.B</key>
     <dict>
@@ -584,11 +596,38 @@
       <integer>-79</integer>
       <key>underscore</key>
       <integer>-80</integer>
+      <key>uni0416</key>
+      <integer>-103</integer>
+      <key>uni042A</key>
+      <integer>-45</integer>
+    </dict>
+    <key>public.kern1.Decyrillic</key>
+    <dict>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>48</integer>
+      <key>public.kern2.T</key>
+      <integer>-97</integer>
+      <key>underscore</key>
+      <integer>127</integer>
     </dict>
     <key>public.kern1.E</key>
     <dict>
       <key>public.kern2.idieresis</key>
       <integer>149</integer>
+    </dict>
+    <key>public.kern1.Ecyrillic</key>
+    <dict>
+      <key>public.kern2.comma</key>
+      <integer>-92</integer>
+    </dict>
+    <key>public.kern1.Ereversedcyrillic</key>
+    <dict>
+      <key>public.kern2.comma</key>
+      <integer>-92</integer>
+      <key>public.kern2.quotedblbase</key>
+      <integer>-68</integer>
+      <key>underscore</key>
+      <integer>-80</integer>
     </dict>
     <key>public.kern1.F</key>
     <dict>
@@ -709,6 +748,8 @@
       <integer>-68</integer>
       <key>public.kern2.bullet</key>
       <integer>-68</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-224</integer>
       <key>public.kern2.guillemetleft</key>
       <integer>-103</integer>
       <key>public.kern2.hyphen</key>
@@ -758,6 +799,8 @@
       <integer>-264</integer>
       <key>public.kern2.bullet</key>
       <integer>-68</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-278</integer>
       <key>public.kern2.dagger</key>
       <integer>-195</integer>
       <key>public.kern2.eight.sups</key>
@@ -884,6 +927,8 @@
       <integer>-185</integer>
       <key>public.kern2.C</key>
       <integer>-69</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-266</integer>
       <key>public.kern2.J</key>
       <integer>-184</integer>
       <key>public.kern2.S</key>
@@ -896,6 +941,8 @@
       <integer>-68</integer>
       <key>public.kern2.bullet</key>
       <integer>-68</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-126</integer>
       <key>public.kern2.colon</key>
       <integer>-68</integer>
       <key>public.kern2.comma</key>
@@ -979,6 +1026,8 @@
       <integer>-172</integer>
       <key>public.kern2.C</key>
       <integer>-79</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-241</integer>
       <key>public.kern2.J</key>
       <integer>-198</integer>
       <key>public.kern2.V</key>
@@ -989,6 +1038,8 @@
       <integer>-127</integer>
       <key>public.kern2.bullet</key>
       <integer>-80</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-42</integer>
       <key>public.kern2.colon</key>
       <integer>-127</integer>
       <key>public.kern2.comma</key>
@@ -1052,6 +1103,8 @@
       <integer>-112</integer>
       <key>public.kern2.approxequal</key>
       <integer>-127</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-62</integer>
       <key>public.kern2.colon</key>
       <integer>-103</integer>
       <key>public.kern2.comma</key>
@@ -1105,6 +1158,8 @@
       <integer>-103</integer>
       <key>public.kern2.bullet</key>
       <integer>-92</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-173</integer>
       <key>public.kern2.eight</key>
       <integer>-44</integer>
       <key>public.kern2.four</key>
@@ -1121,6 +1176,12 @@
       <integer>-75</integer>
       <key>public.kern2.three</key>
       <integer>-44</integer>
+      <key>uni0424</key>
+      <integer>-103</integer>
+      <key>uni0427</key>
+      <integer>-68</integer>
+      <key>uni0442</key>
+      <integer>-127</integer>
     </dict>
     <key>public.kern1.Y</key>
     <dict>
@@ -1176,6 +1237,8 @@
       <integer>-195</integer>
       <key>public.kern2.bullet</key>
       <integer>-80</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-124</integer>
       <key>public.kern2.colon</key>
       <integer>-127</integer>
       <key>public.kern2.comma</key>
@@ -1217,6 +1280,8 @@
       <integer>-68</integer>
       <key>public.kern2.C</key>
       <integer>-68</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-61</integer>
       <key>public.kern2.guillemetleft</key>
       <integer>-68</integer>
       <key>public.kern2.hyphen</key>
@@ -1275,6 +1340,8 @@
       <integer>-80</integer>
       <key>public.kern2.x</key>
       <integer>-68</integer>
+      <key>tenge</key>
+      <integer>-80</integer>
     </dict>
     <key>public.kern1.asciicircum</key>
     <dict>
@@ -1286,6 +1353,8 @@
       <integer>-20</integer>
       <key>public.kern2.Dcroat</key>
       <integer>24</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-68</integer>
       <key>public.kern2.J</key>
       <integer>-195</integer>
       <key>public.kern2.comma</key>
@@ -1294,6 +1363,33 @@
       <integer>-92</integer>
       <key>underscore</key>
       <integer>-138</integer>
+    </dict>
+    <key>public.kern1.bsmcyrillic</key>
+    <dict>
+      <key>public.kern2.T</key>
+      <integer>-211</integer>
+      <key>public.kern2.V</key>
+      <integer>-211</integer>
+      <key>public.kern2.X</key>
+      <integer>-57</integer>
+      <key>public.kern2.Y</key>
+      <integer>-345</integer>
+      <key>public.kern2.dagger</key>
+      <integer>-105</integer>
+      <key>public.kern2.parenright</key>
+      <integer>-57</integer>
+      <key>public.kern2.quotedblleft</key>
+      <integer>-144</integer>
+      <key>public.kern2.t</key>
+      <integer>-67</integer>
+      <key>public.kern2.v</key>
+      <integer>-67</integer>
+      <key>public.kern2.w</key>
+      <integer>-57</integer>
+      <key>public.kern2.x</key>
+      <integer>-40</integer>
+      <key>uni044A</key>
+      <integer>-180</integer>
     </dict>
     <key>public.kern1.bullet</key>
     <dict>
@@ -1307,6 +1403,10 @@
       <integer>-92</integer>
       <key>public.kern2.Y</key>
       <integer>-92</integer>
+      <key>tenge</key>
+      <integer>-68</integer>
+      <key>uni042A</key>
+      <integer>-149</integer>
     </dict>
     <key>public.kern1.c</key>
     <dict>
@@ -1379,6 +1479,8 @@
       <integer>-127</integer>
       <key>public.kern2.quotedblleft</key>
       <integer>-92</integer>
+      <key>uni042A</key>
+      <integer>-103</integer>
     </dict>
     <key>public.kern1.colon.case</key>
     <dict>
@@ -1405,6 +1507,8 @@
       <integer>-68</integer>
       <key>public.kern2.Y</key>
       <integer>-110</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-96</integer>
       <key>public.kern2.eight</key>
       <integer>-42</integer>
       <key>public.kern2.nine.1</key>
@@ -1540,6 +1644,8 @@
       <integer>80</integer>
       <key>public.kern2.A</key>
       <integer>-68</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-152</integer>
       <key>public.kern2.J</key>
       <integer>-127</integer>
       <key>public.kern2.Y</key>
@@ -1638,10 +1744,14 @@
       <integer>-103</integer>
       <key>public.kern2.Y</key>
       <integer>-127</integer>
+      <key>uni042A</key>
+      <integer>-138</integer>
     </dict>
     <key>public.kern1.guillemetright</key>
     <dict>
       <key>public.kern2.A</key>
+      <integer>-68</integer>
+      <key>public.kern2.Elcyrillic</key>
       <integer>-68</integer>
       <key>public.kern2.T</key>
       <integer>-264</integer>
@@ -1673,6 +1783,10 @@
       <integer>-68</integer>
       <key>public.kern2.x</key>
       <integer>-68</integer>
+      <key>uni0416</key>
+      <integer>-103</integer>
+      <key>uni042A</key>
+      <integer>-138</integer>
     </dict>
     <key>public.kern1.hyphen</key>
     <dict>
@@ -1708,6 +1822,12 @@
       <integer>-12</integer>
       <key>public.kern2.x</key>
       <integer>-46</integer>
+      <key>uni0416</key>
+      <integer>-167</integer>
+      <key>uni0417</key>
+      <integer>-67</integer>
+      <key>uni042A</key>
+      <integer>-90</integer>
     </dict>
     <key>public.kern1.i</key>
     <dict>
@@ -1764,6 +1884,8 @@
       <integer>184</integer>
       <key>public.kern2.t</key>
       <integer>103</integer>
+      <key>uni0418</key>
+      <integer>149</integer>
     </dict>
     <key>public.kern1.k</key>
     <dict>
@@ -1823,6 +1945,8 @@
       <integer>-4</integer>
       <key>public.kern2.asciicircum</key>
       <integer>-61</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-69</integer>
       <key>public.kern2.comma</key>
       <integer>37</integer>
       <key>public.kern2.eight</key>
@@ -1915,6 +2039,8 @@
       <integer>-216</integer>
       <key>public.kern2.a</key>
       <integer>18</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-26</integer>
       <key>public.kern2.dagger</key>
       <integer>-68</integer>
       <key>public.kern2.emdash</key>
@@ -1945,6 +2071,8 @@
       <integer>-49</integer>
       <key>public.kern2.z</key>
       <integer>-38</integer>
+      <key>uni04B0</key>
+      <integer>-62</integer>
     </dict>
     <key>public.kern1.parenleft</key>
     <dict>
@@ -1995,6 +2123,8 @@
       <integer>-68</integer>
       <key>public.kern2.A</key>
       <integer>-160</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-92</integer>
       <key>public.kern2.J</key>
       <integer>-334</integer>
       <key>public.kern2.comma</key>
@@ -2010,6 +2140,8 @@
     <dict>
       <key>public.kern2.C</key>
       <integer>-88</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>103</integer>
       <key>public.kern2.T</key>
       <integer>-195</integer>
       <key>public.kern2.V</key>
@@ -2022,6 +2154,8 @@
       <integer>-68</integer>
       <key>public.kern2.eight.sups</key>
       <integer>-195</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>127</integer>
       <key>public.kern2.one</key>
       <integer>-138</integer>
       <key>public.kern2.quotedblleft</key>
@@ -2030,6 +2164,12 @@
       <integer>-195</integer>
       <key>public.kern2.v</key>
       <integer>-103</integer>
+      <key>uni0427</key>
+      <integer>-127</integer>
+      <key>uni042A</key>
+      <integer>-103</integer>
+      <key>uni0442</key>
+      <integer>-103</integer>
     </dict>
     <key>public.kern1.quotedblleft</key>
     <dict>
@@ -2037,10 +2177,14 @@
       <integer>-127</integer>
       <key>public.kern2.A</key>
       <integer>-195</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-127</integer>
       <key>public.kern2.J</key>
       <integer>-299</integer>
       <key>public.kern2.comma</key>
       <integer>-201</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>-172</integer>
       <key>public.kern2.four</key>
       <integer>-127</integer>
       <key>public.kern2.o</key>
@@ -2053,6 +2197,10 @@
       <integer>-49</integer>
       <key>public.kern2.slash</key>
       <integer>-195</integer>
+      <key>uni0414</key>
+      <integer>-103</integer>
+      <key>uni0434</key>
+      <integer>-115</integer>
     </dict>
     <key>public.kern1.quotedblright</key>
     <dict>
@@ -2072,6 +2220,8 @@
       <integer>-277</integer>
       <key>public.kern2.C</key>
       <integer>-115</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-103</integer>
       <key>public.kern2.J</key>
       <integer>-253</integer>
       <key>public.kern2.a</key>
@@ -2084,6 +2234,8 @@
       <integer>-242</integer>
       <key>public.kern2.eight</key>
       <integer>-80</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>-127</integer>
       <key>public.kern2.four</key>
       <integer>-195</integer>
       <key>public.kern2.guillemetleft</key>
@@ -2114,6 +2266,12 @@
       <integer>25</integer>
       <key>underscore</key>
       <integer>-80</integer>
+      <key>uni0414</key>
+      <integer>-80</integer>
+      <key>uni0434</key>
+      <integer>-115</integer>
+      <key>uni044F</key>
+      <integer>-68</integer>
     </dict>
     <key>public.kern1.r</key>
     <dict>
@@ -2145,6 +2303,8 @@
       <integer>-137</integer>
       <key>public.kern2.eight.sups</key>
       <integer>71</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>-55</integer>
       <key>public.kern2.f</key>
       <integer>72</integer>
       <key>public.kern2.four.subs</key>
@@ -2215,6 +2375,8 @@
       <integer>-68</integer>
       <key>public.kern2.Y</key>
       <integer>-149</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-7</integer>
       <key>public.kern2.quotedbl</key>
       <integer>-25</integer>
       <key>public.kern2.quotedblbase</key>
@@ -2248,6 +2410,8 @@
       <integer>9</integer>
       <key>public.kern2.A</key>
       <integer>-219</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>-218</integer>
       <key>public.kern2.J</key>
       <integer>-195</integer>
       <key>public.kern2.a</key>
@@ -2467,6 +2631,8 @@
       <integer>-80</integer>
       <key>public.kern2.comma</key>
       <integer>-101</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>-90</integer>
       <key>public.kern2.f</key>
       <integer>32</integer>
       <key>public.kern2.four.subs</key>
@@ -2569,6 +2735,10 @@
       <integer>-30</integer>
       <key>public.kern2.v</key>
       <integer>-66</integer>
+      <key>uni0427</key>
+      <integer>-53</integer>
+      <key>uni042A</key>
+      <integer>-45</integer>
     </dict>
     <key>public.kern1.zero.sups</key>
     <dict>
@@ -2634,6 +2804,8 @@
       <integer>46</integer>
       <key>public.kern2.C</key>
       <integer>-80</integer>
+      <key>public.kern2.Elcyrillic</key>
+      <integer>115</integer>
       <key>public.kern2.T</key>
       <integer>-115</integer>
       <key>public.kern2.U</key>
@@ -2642,8 +2814,12 @@
       <integer>-160</integer>
       <key>public.kern2.asciicircum</key>
       <integer>-138</integer>
+      <key>public.kern2.checyrillic</key>
+      <integer>-32</integer>
       <key>public.kern2.eight</key>
       <integer>-92</integer>
+      <key>public.kern2.elcyrillic</key>
+      <integer>81</integer>
       <key>public.kern2.four</key>
       <integer>-115</integer>
       <key>public.kern2.i</key>
@@ -2664,6 +2840,38 @@
       <integer>-92</integer>
       <key>public.kern2.v</key>
       <integer>-160</integer>
+      <key>tenge</key>
+      <integer>-103</integer>
+      <key>uni0427</key>
+      <integer>-219</integer>
+      <key>uni042A</key>
+      <integer>-103</integer>
+    </dict>
+    <key>uni0416</key>
+    <dict>
+      <key>less</key>
+      <integer>-103</integer>
+      <key>public.kern2.guillemetleft</key>
+      <integer>-103</integer>
+      <key>public.kern2.hyphen</key>
+      <integer>-143</integer>
+    </dict>
+    <key>uni0424</key>
+    <dict>
+      <key>public.kern2.quotedblbase</key>
+      <integer>-103</integer>
+    </dict>
+    <key>uni0442</key>
+    <dict>
+      <key>public.kern2.comma</key>
+      <integer>-44</integer>
+      <key>public.kern2.quotedblbase</key>
+      <integer>-149</integer>
+    </dict>
+    <key>uni04B0</key>
+    <dict>
+      <key>public.kern2.o</key>
+      <integer>-62</integer>
     </dict>
     <key>uni20BD</key>
     <dict>

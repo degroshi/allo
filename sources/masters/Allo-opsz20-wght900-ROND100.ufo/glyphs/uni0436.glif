@@ -4,6 +4,7 @@
   <unicode hex="0436"/>
   <anchor x="1753" y="0" name="cyrtic"/>
   <anchor x="910" y="1097" name="top"/>
+  <anchor x="910" y="0" name="bottom"/>
   <outline>
     <contour>
       <point x="106.89721775899159" y="167.79262214108286"/>
