@@ -14,6 +14,8 @@
     <string>G_.glif</string>
     <key>S</key>
     <string>S_.glif</string>
+    <key>Sigma</key>
+    <string>S_igma.glif</string>
     <key>_part.bottom_lfthook_uc</key>
     <string>_part.bottom_lfthook_uc.glif</string>
     <key>_part.f_base</key>
@@ -206,6 +208,8 @@
     <string>three.sups.glif</string>
     <key>tildecomb</key>
     <string>tildecomb.glif</string>
+    <key>tugrik</key>
+    <string>tugrik.glif</string>
     <key>two</key>
     <string>two.glif</string>
     <key>two.sups</key>

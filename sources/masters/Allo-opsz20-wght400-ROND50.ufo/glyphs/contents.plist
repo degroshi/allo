@@ -212,6 +212,8 @@
     <string>S_circumflex.glif</string>
     <key>Scommaaccent</key>
     <string>S_commaaccent.glif</string>
+    <key>Sigma</key>
+    <string>S_igma.glif</string>
     <key>T</key>
     <string>T_.glif</string>
     <key>Tbar</key>
@@ -1100,6 +1102,8 @@
     <string>triagrt.glif</string>
     <key>triagup</key>
     <string>triagup.glif</string>
+    <key>tugrik</key>
+    <string>tugrik.glif</string>
     <key>two</key>
     <string>two.glif</string>
     <key>two.dnom</key>

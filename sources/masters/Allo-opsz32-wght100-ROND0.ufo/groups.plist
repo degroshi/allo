@@ -87,6 +87,7 @@
       <string>option</string>
       <string>uni0415</string>
       <string>uni0401</string>
+      <string>Sigma</string>
     </array>
     <key>public.kern1.Ecyrillic</key>
     <array>
@@ -238,6 +239,7 @@
       <string>uni0422</string>
       <string>uni0490</string>
       <string>uni0492</string>
+      <string>tugrik</string>
     </array>
     <key>public.kern1.V</key>
     <array>
@@ -1034,6 +1036,7 @@
       <string>Tbar</string>
       <string>uni0422</string>
       <string>uni042A</string>
+      <string>tugrik</string>
     </array>
     <key>public.kern2.U</key>
     <array>

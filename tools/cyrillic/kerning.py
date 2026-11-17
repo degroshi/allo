@@ -18,7 +18,7 @@ from fontTools.varLib.models import normalizeLocation
 
 from inter import AXES
 
-OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari)$')
+OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari|tugrik|Sigma)$')
 # where Inter gives a glyph no group: (left side group, right side group) by shape
 CYR_GROUPS = {
     'uni0427': ('U', None),       # Ч: its left arm comes down like U's
@@ -26,6 +26,8 @@ CYR_GROUPS = {
     'uni040E': ('V', 'Y'),        # Ў: as У
     'uni0492': ('B', None),       # Ғ: as Г, its right side keeps Inter's T
     'uni04D8': ('C', 'D'),        # Ә: round both sides, as O
+    'tugrik': ('T', 'T'),         # ₮: T with two strokes across the stem
+    'Sigma': (None, 'E'),         # Σ: its arms end as E's
 }
 ALTERNATES = {'uni0406.1': 'I.1', 'uni0407.1': 'Idieresis.1', 'uni0430.1': 'a.1'}
 

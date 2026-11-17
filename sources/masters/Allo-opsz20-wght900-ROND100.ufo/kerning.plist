@@ -33,6 +33,19 @@
       <key>public.kern2.A</key>
       <integer>-20</integer>
     </dict>
+    <key>Sigma</key>
+    <dict>
+      <key>less</key>
+      <integer>-127</integer>
+      <key>public.kern2.bullet</key>
+      <integer>-68</integer>
+      <key>public.kern2.guillemetleft</key>
+      <integer>-68</integer>
+      <key>public.kern2.hyphen</key>
+      <integer>-1</integer>
+      <key>public.kern2.t</key>
+      <integer>-68</integer>
+    </dict>
     <key>Tbar</key>
     <dict>
       <key>public.kern2.A</key>

@@ -9,7 +9,7 @@ Run again on an edited file, it removes what it added before adding it again.
 """
 import re
 
-OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari)$')
+OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari|tugrik|Sigma)$')
 MARKER = '# Cyrillic'
 
 
@@ -53,3 +53,15 @@ def update(fea, caps, letters, lower, currency):
                      lambda m: m.group(1) + m.group(2) + '  sub uni0406 by uni0406.1;\n  sub uni0407 by uni0407.1;\n',
                      fea, count=1, flags=re.S)
     return fea
+
+
+def arrows_to_dlig(fea):
+    """Degroshi: typed text is never rewritten, so the typed arrows (-> => <- ...) move from calt,
+    which is on by default, to dlig, which is opt-in. The lifting lookups stay in calt."""
+    m = re.search(r'\n  lookup arrows \{.*?\} arrows;\n', fea, flags=re.S)
+    if not m or 'feature dlig' in fea:
+        return fea
+    lookup = m.group(0)
+    fea = fea[:m.start()] + '\n' + fea[m.end():]
+    end = fea.index('} calt;\n') + len('} calt;\n')
+    return fea[:end] + '\nfeature dlig {' + lookup + '} dlig;\n' + fea[end:]

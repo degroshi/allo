@@ -297,6 +297,7 @@
       <string>zcaron</string>
       <string>Thorn</string>
       <string>eth</string>
+      <string>Sigma</string>
       <string>uni0401</string>
       <string>uni0404</string>
       <string>uni0404.bar</string>
@@ -418,6 +419,7 @@
       <string>afii57636</string>
       <string>baht</string>
       <string>bitcoin</string>
+      <string>tugrik</string>
       <string>tenge</string>
       <string>lari</string>
       <string>zero</string>
@@ -950,6 +952,8 @@
       <string>base</string>
       <key>Scommaaccent</key>
       <string>base</string>
+      <key>Sigma</key>
+      <string>base</string>
       <key>T</key>
       <string>base</string>
       <key>Tbar</key>
@@ -1314,6 +1318,8 @@
       <string>base</string>
       <key>tildecomb</key>
       <string>mark</string>
+      <key>tugrik</key>
+      <string>base</string>
       <key>two</key>
       <string>base</string>
       <key>two.dnom</key>
@@ -1801,6 +1807,8 @@
       <string>uni20B8</string>
       <key>thinspace</key>
       <string>uni2009</string>
+      <key>tugrik</key>
+      <string>uni20AE</string>
       <key>twothirds</key>
       <string>uni2154</string>
       <key>uni25CB</key>

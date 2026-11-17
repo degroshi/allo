@@ -160,13 +160,16 @@ bar('uni04E9', 0x04E9, 'o', 'obarredcyrillic')
 # currency
 inter('tenge', 0x20B8, 'tenge', ('T', 'T'))
 inter('lari', 0x20BE, 'lari', ('O', 'O'))
+# Degroshi's extras (branch degroshi, not in the Cyrillic PR): ₮ for USDT, Σ for «ΣНакл»
+inter('tugrik', 0x20AE, 'tugrik', ('T', 'T'))
+inter('Sigma', 0x03A3, 'Sigma', ('E', 'E'))
 # alternates
 ref('uni0406.1', None, 'I.1')
 ref('uni0407.1', None, 'Idieresis.1')
 ref('uni0430.1', None, 'a.1')
 
 ORDER = list(R)
-POSTSCRIPT = {'tenge': 'uni20B8', 'lari': 'uni20BE'}
+POSTSCRIPT = {'tenge': 'uni20B8', 'lari': 'uni20BE', 'tugrik': 'uni20AE'}
 
 
 # ------------------------------------------------------------------------------------- geometry
@@ -730,7 +733,7 @@ def shifted(g, d, widths):
     return n
 
 
-OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari)$')
+OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari|tugrik|Sigma)$')
 
 
 def write(font, glyphs, order_after='eth'):
@@ -778,6 +781,7 @@ def finish(font):
         letters=[n for n, u in enc if chr(u).isalpha()] + [n for n in R if not R[n].get('uni')],
         lower=[n for n, u in enc if chr(u).islower()],
         currency=[n for n, u in enc if not chr(u).isalpha()])
+    font.features.text = features.arrows_to_dlig(font.features.text)
     font.info.copyright = COPYRIGHT
 
 
