@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0406.1" format="2">
+  <advance width="890"/>
+  <anchor x="523" y="0" name="bottom"/>
+  <anchor x="521" y="788" name="cross"/>
+  <anchor x="979" y="0" name="ogonek"/>
+  <anchor x="1005" y="0" name="right"/>
+  <anchor x="66" y="1490" name="tonos"/>
+  <anchor x="523" y="1490" name="top"/>
+  <outline>
+    <component base="I.1"/>
+  </outline>
+</glyph>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0444" format="2">
+  <advance width="1647"/>
+  <unicode hex="0444"/>
+  <outline>
+    <contour>
+      <point x="625" y="-24" type="curve"/>
+      <point x="1023" y="-24" type="line"/>
+      <point x="1366" y="-24"/>
+      <point x="1622" y="189"/>
+      <point x="1622" y="528" type="curve"/>
+      <point x="1622" y="865"/>
+      <point x="1366" y="1080"/>
+      <point x="1023" y="1080" type="curve"/>
+      <point x="625" y="1080" type="line"/>
+      <point x="283" y="1080"/>
+      <point x="26" y="865"/>
+      <point x="26" y="528" type="curve"/>
+      <point x="26" y="189"/>
+      <point x="283" y="-24"/>
+    </contour>
+    <contour>
+      <point x="625" y="279" type="line"/>
+      <point x="529" y="279"/>
+      <point x="420" y="368"/>
+      <point x="420" y="528" type="curve"/>
+      <point x="420" y="688"/>
+      <point x="529" y="785"/>
+      <point x="625" y="785" type="curve"/>
+      <point x="1023" y="785" type="line"/>
+      <point x="1119" y="785"/>
+      <point x="1228" y="688"/>
+      <point x="1228" y="528" type="curve"/>
+      <point x="1228" y="368"/>
+      <point x="1119" y="279"/>
+      <point x="1023" y="279" type="curve"/>
+    </contour>
+    <contour>
+      <point x="625.0" y="-328.90466521632794"/>
+      <point x="714.0953347836721" y="-418.0"/>
+      <point x="824.0" y="-418.0" type="curve"/>
+      <point x="824.0" y="-418.0" type="line"/>
+      <point x="933.9046652163279" y="-418.0"/>
+      <point x="1023.0" y="-328.90466521632794"/>
+      <point x="1023.0" y="-219.00000000000003" type="curve"/>
+      <point x="1023.0" y="1291.0" type="line"/>
+      <point x="1023.0" y="1400.9046652163279"/>
+      <point x="933.9046652163279" y="1490.0"/>
+      <point x="824.0" y="1490.0" type="curve"/>
+      <point x="824.0" y="1490.0" type="line"/>
+      <point x="714.0953347836721" y="1490.0"/>
+      <point x="625.0" y="1400.9046652163279"/>
+      <point x="625.0" y="1291.0" type="curve"/>
+      <point x="625.0" y="-219.00000000000003" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.truetype.overlap</key>
+      <true/>
+    </dict>
+  </lib>
+</glyph>

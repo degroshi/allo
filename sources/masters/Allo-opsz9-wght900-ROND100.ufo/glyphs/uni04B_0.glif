@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni04B0" format="2">
+  <advance width="1585"/>
+  <unicode hex="04B0"/>
+  <anchor x="797" y="0" name="bottom"/>
+  <anchor x="801" y="323" name="cross"/>
+  <anchor x="997" y="0" name="ogonek"/>
+  <anchor x="52" y="1490" name="tonos"/>
+  <anchor x="792" y="1490" name="top"/>
+  <outline>
+    <component base="Y"/>
+    <component base="crossbar.uc" xOffset="272" yOffset="-421"/>
+  </outline>
+</glyph>

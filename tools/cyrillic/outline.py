@@ -84,53 +84,43 @@ def align(contours, reference):
     return out
 
 
-def point_crotches(contours, stem, ink, max_len=0.2):
-    """Inter cuts some crotches flat (a few units of line between two strokes meeting at an acute
-    angle: и where the diagonal meets a stem). Allo's own letters meet in a point there (N, v, y), and
-    rounding then cuts its notch. The flat goes and its two neighbours run on to where they meet."""
-    from fontTools.misc.bezierTools import curveCurveIntersections, curveLineIntersections, splitCubicAtT
-    from rounding import (segments, seg_length, seg_tangent_end, seg_tangent_start, signed_turn,
-                          line_intersection, from_segments, sub, unit)
-    out = []
-    for c in contours:
+def find_crotches(contours, stem, ink, max_len=0.2):
+    """Inter cuts some crotches flat: a few units of line between two straight strokes meeting at an
+    acute angle (и, where the diagonal meets a stem). Allo's own letters meet in a point there (N), and
+    rounding then cuts its notch. Returns [(contour, segment)] of such flats, found in the reference
+    master and then removed in every master (point_crotches), so all masters keep one structure."""
+    from rounding import segments, seg_length, seg_tangent_end, seg_tangent_start, signed_turn
+    found = []
+    for ci, c in enumerate(contours):
         segs, _ = segments(c)
-        changed = True
-        while changed:
-            changed = False
+        n = len(segs)
+        for i, s in enumerate(segs):
+            if s[0] != 'line' or n < 4 or seg_length(s) > max_len * stem:
+                continue
+            prev, nxt = segs[i - 1], segs[(i + 1) % n]
+            if prev[0] != 'line' or nxt[0] != 'line':
+                continue
+            a = signed_turn(seg_tangent_end(prev), seg_tangent_start(s))
+            b = signed_turn(seg_tangent_start(s), seg_tangent_start(nxt))
+            tot = signed_turn(seg_tangent_end(prev), seg_tangent_start(nxt))
+            if a * ink < 0 and b * ink < 0 and tot * ink < 0 and 180 - abs(tot) < 80:
+                found.append((ci, i))
+    return found
+
+
+def point_crotches(contours, flats):
+    """The flats (find_crotches) taken out, their neighbouring lines run on to where they meet."""
+    from rounding import segments, from_segments, line_intersection, sub, unit
+    out = [list(c) for c in contours]
+    for ci in sorted({ci for ci, _ in flats}):
+        segs, _ = segments(out[ci])
+        for i in sorted((i for c, i in flats if c == ci), reverse=True):
             n = len(segs)
-            for i, s in enumerate(segs):
-                if s[0] != 'line' or n < 4 or seg_length(s) > max_len * stem:
-                    continue
-                prev, nxt = segs[i - 1], segs[(i + 1) % n]
-                a = signed_turn(seg_tangent_end(prev), seg_tangent_start(s))
-                b = signed_turn(seg_tangent_start(s), seg_tangent_start(nxt))
-                tot = signed_turn(seg_tangent_end(prev), seg_tangent_start(nxt))
-                if not (a * ink < 0 and b * ink < 0 and tot * ink < 0 and 180 - abs(tot) < 80):
-                    continue
-                if prev[0] == 'line' and nxt[0] == 'line':
-                    X = line_intersection(prev[1][0], unit(sub(prev[1][1], prev[1][0])),
-                                          nxt[1][1], unit(sub(nxt[1][0], nxt[1][1])))
-                    if X is None:
-                        continue
-                    new_prev = ('line', [prev[1][0], X])
-                    new_next = ('line', [X, nxt[1][1]])
-                elif prev[0] == 'curve' and nxt[0] == 'curve':
-                    hits = curveCurveIntersections(prev[1], nxt[1])
-                    if not hits:
-                        continue
-                    h = max(hits, key=lambda h: h.t1)  # nearest the flat
-                    t1, t2 = h.t1, h.t2
-                    new_prev = ('curve', [tuple(p) for p in splitCubicAtT(*prev[1], t1)[0]])
-                    new_next = ('curve', [tuple(p) for p in splitCubicAtT(*nxt[1], t2)[1]])
-                    X = new_prev[1][-1]
-                    new_next = ('curve', [X] + new_next[1][1:])
-                else:
-                    continue
-                j = (i + 1) % n
-                segs[i - 1] = new_prev
-                segs[j] = new_next
-                del segs[i]
-                changed = True
-                break
-        out.append(from_segments(segs))
+            prev, nxt = segs[i - 1], segs[(i + 1) % n]
+            X = line_intersection(prev[1][0], unit(sub(prev[1][1], prev[1][0])),
+                                  nxt[1][1], unit(sub(nxt[1][0], nxt[1][1])))
+            segs[i - 1] = ('line', [prev[1][0], X])
+            segs[(i + 1) % n] = ('line', [X, nxt[1][1]])
+            del segs[i]
+        out[ci] = from_segments(segs)
     return out

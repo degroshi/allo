@@ -31,11 +31,18 @@ Each Cyrillic glyph is made one of four ways:
 |---|---|---|
 | component | А В Е З І Ј М Н О Р С Т Х Ѕ Ү а е і ј о р с у х ѕ һ, Ё ё Ї ї Й й Ў ў Ғ ғ Ұ ұ | Allo's own glyphs as components, plus marks on anchors: they match the Latin exactly and follow its changes |
 | turned | И Я Һ ә | Allo's N and R mirrored, Ч and e turned over, with their rounding |
-| Allo + bar | Є є Э э Ө ө Ю ю | Allo's C c O o I with the bar from Inter's drawing |
+| Allo + bar | Є є Ө ө Ю ю, Э э | components of Allo's C c O o I ı plus a bar glyph (`uni0404.bar`, ...), overlapping as Allo's dcroat and Tbar do; Э and э turn C and c round, so they are outlines |
 | Inter | the rest | Inter's outline, overlaps removed, spaced as above, rounded by `rounding.py` |
 
 All the ROND masters of a glyph come from one sharp outline and one corner plan, which is made in
-the opsz 14, wght 400 master. So the masters interpolate.
+the opsz 14, wght 400 master. So the masters interpolate. opsz 9 is opsz 14 moved 17 units each side
+(release.json "smallShift"), as for the Latin, and glyphs whose rounding trims curves also get the ROND
+10 and 30 layers at wght 580 and 900.
+
+A few glyphs keep overlapping contours, because removing the overlap gives different structures in
+different masters: Ф ф я Э э. They carry `public.truetype.overlap`, so rasterisers that look for the
+flag treat the overlap properly. A bar's ends inside the letter it crosses are not rounded, so no
+nick shows where it leaves the stroke.
 
 ## Rounding rules (`rounding.py`)
 

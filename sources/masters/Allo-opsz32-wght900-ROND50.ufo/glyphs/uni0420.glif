@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0420" format="2">
+  <advance width="1278"/>
+  <unicode hex="0420"/>
+  <anchor x="51" y="1490" name="tonos"/>
+  <anchor x="629" y="1490" name="top"/>
+  <anchor x="63" y="1490" name="topl"/>
+  <outline>
+    <component base="P"/>
+  </outline>
+</glyph>

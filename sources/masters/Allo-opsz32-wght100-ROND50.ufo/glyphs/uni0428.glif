@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0428" format="2">
+  <advance width="1690"/>
+  <unicode hex="0428"/>
+  <anchor x="1544" y="0" name="cyrtic"/>
+  <anchor x="845" y="1490" name="top"/>
+  <outline>
+    <contour>
+      <point x="150.3574999044755" y="1490.0"/>
+      <point x="146.0" y="1485.6425000955246"/>
+      <point x="146.0" y="1473.325" type="curve"/>
+      <point x="146.0" y="16.675000000000015" type="line"/>
+      <point x="146.0" y="4.357499904475494"/>
+      <point x="150.3574999044755" y="0.0"/>
+      <point x="162.675" y="0.0" type="curve"/>
+      <point x="1527.325" y="0.0" type="line"/>
+      <point x="1539.6425000955246" y="0.0"/>
+      <point x="1544.0" y="4.357499904475516"/>
+      <point x="1544.0" y="16.675000000000015" type="curve"/>
+      <point x="1544.0" y="1473.325" type="line"/>
+      <point x="1544.0" y="1485.6425000955246"/>
+      <point x="1539.6425000955246" y="1490.0"/>
+      <point x="1527.325" y="1490.0" type="curve"/>
+      <point x="1514.675" y="1490.0" type="line"/>
+      <point x="1502.3574999044754" y="1490.0"/>
+      <point x="1498.0" y="1485.6425000955246"/>
+      <point x="1498.0" y="1473.325" type="curve"/>
+      <point x="1498.0" y="46.0" type="line"/>
+      <point x="868.0" y="46.0" type="line"/>
+      <point x="868.0" y="1473.325" type="line"/>
+      <point x="868.0" y="1485.6425000955246"/>
+      <point x="863.6425000955245" y="1490.0"/>
+      <point x="851.3249999999999" y="1490.0" type="curve"/>
+      <point x="838.6750000000001" y="1490.0" type="line"/>
+      <point x="826.3574999044755" y="1490.0"/>
+      <point x="822.0" y="1485.6425000955246"/>
+      <point x="822.0" y="1473.325" type="curve"/>
+      <point x="822.0" y="46.0" type="line"/>
+      <point x="192.0" y="46.0" type="line"/>
+      <point x="192.0" y="1473.325" type="line"/>
+      <point x="192.0" y="1485.6425000955246"/>
+      <point x="187.6425000955245" y="1490.0"/>
+      <point x="175.325" y="1490.0" type="curve"/>
+      <point x="162.675" y="1490.0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

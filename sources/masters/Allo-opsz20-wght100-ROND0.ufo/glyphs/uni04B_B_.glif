@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni04BB" format="2">
+  <advance width="1124"/>
+  <unicode hex="04BB"/>
+  <anchor x="562" y="0" name="bottom"/>
+  <anchor x="189" y="0" name="cedilla"/>
+  <anchor x="208" y="1290" name="cross"/>
+  <anchor x="909" y="0" name="lfthook"/>
+  <anchor x="189" y="1490" name="top"/>
+  <outline>
+    <component base="h"/>
+  </outline>
+</glyph>

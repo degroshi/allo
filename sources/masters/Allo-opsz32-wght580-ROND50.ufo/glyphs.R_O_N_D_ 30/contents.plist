@@ -126,6 +126,8 @@
     <string>k.glif</string>
     <key>l.ss02</key>
     <string>l.ss02.glif</string>
+    <key>lari</key>
+    <string>lari.glif</string>
     <key>leftArrow</key>
     <string>leftA_rrow.glif</string>
     <key>leftHookArrow</key>
@@ -210,6 +212,24 @@
     <string>two.sups.glif</string>
     <key>u</key>
     <string>u.glif</string>
+    <key>uni0423</key>
+    <string>uni0423.glif</string>
+    <key>uni042D</key>
+    <string>uni042D_.glif</string>
+    <key>uni0431</key>
+    <string>uni0431.glif</string>
+    <key>uni0432</key>
+    <string>uni0432.glif</string>
+    <key>uni0437</key>
+    <string>uni0437.glif</string>
+    <key>uni043C</key>
+    <string>uni043C_.glif</string>
+    <key>uni044D</key>
+    <string>uni044D_.glif</string>
+    <key>uni04D8</key>
+    <string>uni04D_8.glif</string>
+    <key>uni04D9</key>
+    <string>uni04D_9.glif</string>
     <key>uni20B9</key>
     <string>uni20B_9.glif</string>
     <key>uni20BA</key>

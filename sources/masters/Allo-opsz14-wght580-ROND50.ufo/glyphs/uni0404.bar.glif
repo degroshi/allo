@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0404.bar" format="2">
+  <advance width="1494"/>
+  <outline>
+    <contour>
+      <point x="295.0" y="648.0" type="line"/>
+      <point x="822.475" y="648.0" type="line"/>
+      <point x="891.56010923142" y="648.0"/>
+      <point x="916.0" y="672.43989076858"/>
+      <point x="916.0" y="741.525" type="curve"/>
+      <point x="916.0" y="774.475" type="line"/>
+      <point x="916.0" y="843.56010923142"/>
+      <point x="891.56010923142" y="868.0"/>
+      <point x="822.475" y="868.0" type="curve"/>
+      <point x="295.0" y="868.0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

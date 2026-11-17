@@ -19,6 +19,7 @@ corner plan, so all masters interpolate.
 import argparse
 import copy
 import math
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -29,7 +30,7 @@ from ufoLib2.objects import Anchor, Component, Contour, Glyph, Point
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from allo import ROOT, masters as designspace_masters, radius  # noqa: E402
 from inter import Inter, reverse_contour  # noqa: E402
-from outline import align, point_crotches, union  # noqa: E402
+from outline import align, find_crotches, point_crotches, union  # noqa: E402
 from rounding import (ink_sign, plan_glyph, round_glyph, straighten_spurs, to_cubic, unround,  # noqa: E402
                       line_intersection, sub, unit)
 
@@ -97,7 +98,7 @@ ref('uni0406', 0x0406, 'I')
 ref('uni0407', 0x0407, 'Idieresis')
 ref('uni0408', 0x0408, 'J')
 ref('uni040E', 0x040E, 'uni0423', [('brevecomb', 'top')])
-inter('uni0490', 0x0490, 'afii10050', ('H', 'T'))
+inter('uni0490', 0x0490, 'afii10050', ('H', 'T'), make='upturn')
 ref('uni0492', 0x0492, 'uni0413', [('crossbar.uc', 'stroke')])
 inter('uni049A', 0x049A, 'Kadescendercyrillic', ('H', 'K'))
 inter('uni04A2', 0x04A2, 'Endescendercyrillic', ('H', 'H'))
@@ -108,7 +109,7 @@ inter('uni04D8', 0x04D8, 'Schwacyrillic', ('O', 'O'))
 bar('uni04E8', 0x04E8, 'O', 'afii10147')
 # lowercase
 ref('uni0430', 0x0430, 'a')
-inter('uni0431', 0x0431, 'becyrillic', ('o', 'o'))
+inter('uni0431', 0x0431, 'becyrillic', ('o', 'o'), bend_cap=True)  # its thin flag at Black
 inter('uni0432', 0x0432, 'vecyrillic', ('n', 's'))
 inter('uni0433', 0x0433, 'ge-cy', ('n', 'r'))
 inter('uni0434', 0x0434, 'decyrillic', ('n', 'n'))
@@ -138,7 +139,7 @@ inter('uni044C', 0x044C, 'softsigncyrillic', ('n', 'o'))
 R['uni044B'] = dict(uni=0x044B, kind='pair', parts=('uni044C', 'idotless'), source='yericyrillic')
 bar('uni044D', 0x044D, 'c', 'ereversedcyrillic', mirror=True)
 R['uni044E'] = dict(uni=0x044E, kind='yu', parts=('idotless', 'o'), source='iucyrillic')
-inter('uni044F', 0x044F, 'iacyrillic', ('o', 'n'))
+inter('uni044F', 0x044F, 'iacyrillic', ('o', 'n'), union=False)
 ref('uni0451', 0x0451, 'edieresis')
 bar('uni0454', 0x0454, 'c', 'ecyrillic')
 ref('uni0455', 0x0455, 's')
@@ -238,15 +239,22 @@ def sample(contour, n=12):
 class Master:
     """One (opsz, wght) of Allo: its ROND 0 font (sharp reference) and its R, stems and Inter location."""
 
-    def __init__(self, inter, opsz, wght, fonts):
+    def __init__(self, inter, opsz, wght, fonts, sparse=None):
         self.inter, self.opsz, self.wght = inter, opsz, wght
-        self.fonts = fonts  # {rond: ufoLib2.Font} (0, 50, 100 always; others for sparse layers)
+        self.fonts = fonts  # {rond: ufoLib2.Font} for ROND 0, 50, 100
+        self.sparse = sparse or {}  # {rond: layer name in the ROND 50 font} (ROND 10 and 30 at heavy weights)
         self.R = radius(fonts[0], fonts[50])
         self.xheight = fonts[0].info.xHeight
         self.cap = fonts[0].info.capHeight
         self.stem = self.allo_stem()
         self.loc = {'opsz': min(max(opsz, 14), 32), 'wght': self.calibrate()}
         self._delta = {}
+
+    def source(self, r):
+        """Where this master's glyphs at ROND r live: a font, or a sparse layer of the ROND 50 font."""
+        if r in self.fonts:
+            return self.fonts[r]
+        return self.fonts[50].layers[self.sparse[r]]
 
     def sharp(self, name):
         """Allo's glyph without its rounding (ROND 0's fillets collapsed, spurs as lines)."""
@@ -319,7 +327,21 @@ def straight_u(m, contours, width):
     return [new], width
 
 
-MAKERS = {'straight_u': straight_u}
+def upturn(m, contours, width):
+    """Ґ: Inter's upturn stands on the end of Г's bar; at some masters Inter leaves the bar a few
+    units past it. Here its outer side and foot are flush with the bar's end and underside."""
+    up = min(contours, key=len)
+    rest = [c for c in contours if c is not up]
+    x0, y0, x1, y1 = bbox([up])
+    # the bar: the topmost horizontal run of the rest, reaching furthest right
+    bx1 = max(p[0] for c in rest for p in c)
+    under = min(p[1] for c in rest for p in c if abs(p[0] - bx1) < 1)
+    fixed = [((bx1 if abs(x - x1) < abs(x - x0) else x), (under if abs(y - y0) < abs(y - y1) else y), t)
+             for x, y, t in up]
+    return rest + [fixed], width
+
+
+MAKERS = {'straight_u': straight_u, 'upturn': upturn}
 
 
 def sharp_inter(m, spec):
@@ -328,10 +350,9 @@ def sharp_inter(m, spec):
         contours, width = MAKERS[spec['make']](m, contours, width)
     if spec.get('union', True) and len(contours) > 1:
         contours = union(contours)
-    contours = point_crotches(contours, m.stem, ink_sign(contours))
     dl, _ = m.delta(spec['sb'][0])
     _, dr = m.delta(spec['sb'][1])
-    contours = grid(shift(contours, dl))
+    contours = shift(contours, dl)
     anchors = {k: (round(x + dl), round(y)) for k, (x, y) in anchors.items()}
     return contours, round(width + dl + dr), anchors
 
@@ -343,8 +364,10 @@ def grid(contours):
 
 # ------------------------------------------------------------------------------------------ build
 
-def to_glyph(name, spec, contours, width, anchors, components=()):
+def to_glyph(name, spec, contours, width, anchors, components=(), overlap=False):
     g = Glyph(name)
+    if overlap or spec.get('union') is False:
+        g.lib['public.truetype.overlap'] = True  # contours overlap: rasterisers should know
     g.width = round(width, 3) if width % 1 else int(width)
     if spec.get('uni'):
         g.unicodes = [spec['uni']]
@@ -358,12 +381,45 @@ def to_glyph(name, spec, contours, width, anchors, components=()):
     return g
 
 
+def inside(contours, pt):
+    from fontTools.pens.pointInsidePen import PointInsidePen
+    from fontTools.pens.pointPen import PointToSegmentPen
+
+    class G:
+        def drawPoints(self, pen):
+            for c in contours:
+                pen.beginPath()
+                for x, y, t in c:
+                    pen.addPoint((x, y), t)
+                pen.endPath()
+    pen = PointInsidePen(None, pt)
+    G().drawPoints(PointToSegmentPen(pen))
+    return pen.getResult()
+
+
+def hide(plans, contours, ink):
+    """No fillets on the corners of a part that lie inside the letter it is laid on (a bar's ends in a
+    stem or bowl): rounded, they would show as nicks where the bar leaves the stroke."""
+    from rounding import segments
+    for plan, c in zip(plans, contours):
+        segs, _ = segments(to_cubic(c))
+        for i, (kind, pts) in enumerate(segs):
+            if plan['vertex'][i] and inside(ink, pts[0]):
+                plan['vertex'][i] = None
+        n = len(plan['vertex'])
+        for i in range(n):
+            if not (plan['vertex'][i] and plan['vertex'][(i + 1) % n]):
+                plan['terminal'][i] = False
+    return plans
+
+
 class Builder:
     def __init__(self, masters):
         self.masters = masters  # {(opsz, wght): Master}
         self.ref = masters[REF] if REF in masters else next(iter(masters.values()))
         self.plans = {}
         self.ref_sharp = {}
+        self.flats = {}
         self.made = {}  # (opsz, wght) -> {name: {rond: Glyph}}
 
     def sharp(self, m, name, spec):
@@ -371,24 +427,29 @@ class Builder:
         reference master's contour order."""
         contours, width, anchors = sharp_inter(m, spec)
         if name not in self.ref_sharp:
-            if m is self.ref:
-                self.ref_sharp[name] = contours
-            else:
-                self.ref_sharp[name] = sharp_inter(self.ref, spec)[0]
+            ref = contours if m is self.ref else sharp_inter(self.ref, spec)[0]
+            self.ref_sharp[name] = ref
+            self.flats[name] = find_crotches(ref, self.ref.stem, ink_sign(ref))
         try:
             contours = align(contours, self.ref_sharp[name])
         except ValueError as e:
             raise ValueError(f'{name} in {m.opsz}/{m.wght}: {e}')
-        return contours, width, anchors
+        return grid(point_crotches(contours, self.flats[name])), width, anchors
 
     def plan(self, name, spec):
         if name not in self.plans:
             ref_contours = self.sharp(self.ref, name, spec)[0]
             self.plans[name] = plan_glyph(ref_contours, self.ref.stem)
+            for p in self.plans[name]:
+                p['bend_cap'] = spec.get('bend_cap', False)
         return self.plans[name]
 
     def build_master(self, m, ronds):
+        """{name: {rond: Glyph}}. ROND 10 and 30 (sparse layers) only for glyphs that need them: those
+        whose rounding trims curves, which interpolate between ROND 0 and 50 only roughly."""
         out = {}
+        sparse = [r for r in ronds if r in m.sparse]
+        ronds = [r for r in ronds if r not in m.sparse]
         for name in ORDER:
             spec = R[name]
             kind = spec['kind']
@@ -396,9 +457,19 @@ class Builder:
             if kind in ('inter', 'custom'):
                 contours, width, anchors = self.sharp(m, name, spec)
                 plan = self.plan(name, spec)
-                for r in ronds:
+                for r in ronds + sparse:
                     rc = round_glyph(contours, plan, m.R, r, m.stem)
                     out[name][r] = to_glyph(name, spec, rc, width, anchors)
+                if sparse:
+                    lo = round_glyph(contours, plan, m.R, 0, m.stem)
+                    hi = round_glyph(contours, plan, m.R, 50, m.stem)
+                    for r in sparse:
+                        k = r / 50
+                        rc = [[(p.x, p.y) for p in c.points] for c in out[name][r].contours]
+                        miss = max((math.dist(q, (a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k))
+                                    for c0, c1, cr in zip(lo, hi, rc) for a, b, q in zip(c0, c1, cr)), default=0)
+                        if miss <= 0.25:
+                            del out[name][r]
             elif kind == 'ref':
                 for r in ronds:
                     f = m.fonts[r]
@@ -423,10 +494,17 @@ class Builder:
                             anchors['top'] = (top[0] + dx, top[1] + dy)
                     out[name][r] = to_glyph(name, spec, [], bg.width, anchors, comps)
             elif kind in ('mirror', 'rotate'):
-                for r in ronds:
-                    f = m.fonts[r]
-                    base = spec['base']
-                    src = out[base][r] if base in out else f[base]
+                base = spec['base']
+                for r in ronds + sparse:
+                    f = m.source(r)
+                    if base in out:
+                        if r not in out[base]:
+                            continue
+                        src = out[base][r]
+                    elif base in f:
+                        src = f[base]
+                    else:
+                        continue
                     contours = [[(p.x, p.y, p.type) for p in c.points] for c in src.contours]
                     if src.components:
                         contours = ufo_glyph_contours(f, base)
@@ -440,7 +518,7 @@ class Builder:
                         anchors = {'top': (src.width / 2, h), 'bottom': (src.width / 2, 0)}
                     out[name][r] = to_glyph(name, spec, contours, src.width, anchors)
             elif kind == 'bar':
-                self.build_bar(m, name, spec, ronds, out)
+                self.build_bar(m, name, spec, ronds + [r for r in sparse if spec['base'] in m.source(r)], out)
             elif kind == 'pair':
                 self.build_pair(m, name, spec, ronds, out)
             elif kind == 'yu':
@@ -468,24 +546,32 @@ class Builder:
         return [c for c in contours if len(c) not in known], width, anchors
 
     def build_bar(self, m, name, spec, ronds, out):
+        """Є = C + bar, є = c + bar, Ө = O + bar, ө = o + bar: Allo's letter as a component and the bar
+        (from Inter's drawing, rounded here) as a second one, overlapping as Allo's dcroat and Tbar do.
+        Э and э turn C and c round, which a component can't: they are outlines, overlaps marked."""
         base = spec['base']
-        f0 = m.fonts[0]
         base_counts = {len(to_cubic(c)) for c in m.inter.decomposed_at(base, m.loc)['contours']}
         bars, iw, ianchors = self.extra_parts(m, spec, base_counts)
         fx = self.part_map(m, base, spec['mirror'])
         bars = grid([[(fx(x), y, t) for x, y, t in c] for c in bars])
-        if name not in self.plans:
-            self.plans[name] = None
-        bar_plan = plan_glyph(bars, self.ref.stem)
-        for r in ronds:
-            f = m.fonts[r]
-            src = [[(p.x, p.y, p.type) for p in c.points] for c in f[base].contours]
-            width = f[base].width
+        if name not in self.plans:  # the reference master comes first
+            ink = m.sharp(base)
             if spec['mirror']:
-                src = mirror(src, width)
+                ink = mirror(ink, m.fonts[0][base].width)
+            self.plans[name] = hide(plan_glyph(bars, self.ref.stem), bars, ink)
+        bar_plan = self.plans[name]
+        anchors = {k: (round(fx(x)), round(y)) for k, (x, y) in ianchors.items()}
+        part = name + '.bar'
+        for r in ronds:
+            f = m.source(r)
+            width = f[base].width
             rb = round_glyph(bars, bar_plan, m.R, r, m.stem)
-            anchors = {k: (round(fx(x)), round(y)) for k, (x, y) in ianchors.items()}
-            out[name][r] = to_glyph(name, spec, src + rb, width, anchors)
+            if spec['mirror']:
+                src = mirror([[(p.x, p.y, p.type) for p in c.points] for c in f[base].contours], width)
+                out[name][r] = to_glyph(name, spec, src + rb, width, anchors, overlap=True)
+            elif r in m.fonts:
+                out.setdefault(part, {})[r] = to_glyph(part, {}, rb, width, {})
+                out[name][r] = to_glyph(name, spec, [], width, anchors, [(base, (0, 0)), (part, (0, 0))])
 
     def build_pair(self, m, name, spec, ronds, out):
         """Ы = Ь + I as components, the gap between them Inter's, Allo's spacing on the outer sides."""
@@ -508,58 +594,46 @@ class Builder:
             out[name][r] = to_glyph(name, spec, [], width, anchors, [(left, (0, 0)), (right, (x, 0))])
 
     def build_yu(self, m, name, spec, ronds, out):
-        """Ю = I + bar + O (ю = ı + bar + o): Allo's letters, Inter's gap and bar."""
+        """Ю = I + O + bar, ю = ı + o + bar: Allo's letters as components at Inter's gap, and the bar
+        (rounded here) as a third component."""
         left, right = spec['parts']
         ig = m.inter.glyph_at(spec['source'], m.loc)
         comps = dict((c[0], c[1][4]) for c in ig['components'])
-        ileft, iright = left if left != 'idotless' else None, right
-        icontours, iw, _ = m.inter_parts(spec['source'])
-        # Inter: Ю's own contours are the stem/bar rectangles; the O (and I) are components
-        own = [to_cubic(c) for c in ig['contours']]
-        ro = m.inter.decomposed_at(iright, m.loc)
-        o_x0 = comps[iright] + bbox(ro['contours'])[0]
+        own = [to_cubic(c) for c in ig['contours']]  # Inter's own rectangles: the bar (and ю's stem)
+        ro = m.inter.decomposed_at(right, m.loc)
+        o_x0 = comps[right] + bbox(ro['contours'])[0]
         f0 = m.fonts[0]
+        a_left = ufo_glyph_contours(f0, left)
         a_right = ufo_glyph_contours(f0, right)
-        if left in comps:
+        if left in comps:  # Ю: Inter's I is a component too
             il = m.inter.decomposed_at(left, m.loc)
+            stem_x0 = comps[left] + bbox(il['contours'])[0]
             stem_x1 = comps[left] + bbox(il['contours'])[2]
-            a_left_x1 = bbox(ufo_glyph_contours(f0, left))[2]
-            stem_parts = []
-        else:  # ю: the stem is one of Inter's own rectangles (the taller one)
+        else:  # ю: Inter draws the stem as a rectangle (the taller of its own two)
             tall = max(own, key=lambda c: bbox([c])[3] - bbox([c])[1])
-            stem_x1 = bbox([tall])[2]
-            a_left_x1 = None
-            stem_parts = [tall]
+            stem_x0, stem_x1 = bbox([tall])[0], bbox([tall])[2]
             own = [c for c in own if c is not tall]
-        gap = o_x0 - stem_x1
         dl, _ = m.delta('H' if left == 'I' else 'n')
-        if stem_parts:
-            stem_parts = shift(stem_parts, dl)
-            a_left_x1 = bbox(stem_parts)[2]
-        x_o = a_left_x1 + gap - bbox(a_right)[0]
-        # the bar keeps its overlap into the stem and into the bowl
+        x_l = round(stem_x0 + dl - bbox(a_left)[0])  # Allo's stem where Inter's (respaced) is
+        a_left_x1 = x_l + bbox(a_left)[2]
+        x_o = round(a_left_x1 + (o_x0 - stem_x1) - bbox(a_right)[0])
         bars = []
-        for c in own:
+        for c in own:  # the bar keeps its overlap into the stem and into the bowl
             x0, y0, x1, y1 = bbox([c])
             nx0 = a_left_x1 - (stem_x1 - x0)
             nx1 = x_o + bbox(a_right)[0] + (x1 - o_x0)
             bars.append([(nx0 if abs(x - x0) < abs(x - x1) else nx1, y, t) for x, y, t in c])
         bars = grid(bars)
-        stem_parts = grid(stem_parts)
-        x_o = round(x_o)
-        bar_plan = plan_glyph(bars, self.ref.stem)
-        stem_plan = plan_glyph(stem_parts, self.ref.stem) if stem_parts else None
+        if name not in self.plans:  # the reference master comes first
+            ink = shift(m.sharp(left), x_l) + shift(m.sharp(right), x_o)
+            self.plans[name] = hide(plan_glyph(bars, self.ref.stem), bars, ink)
+        bar_plan = self.plans[name]
+        part = name + '.bar'
         for r in ronds:
             f = m.fonts[r]
-            parts = []
-            if stem_parts:
-                parts += round_glyph(stem_parts, stem_plan, m.R, r, m.stem)
-            else:
-                parts += [[(p.x, p.y, p.type) for p in c.points] for c in f[left].contours]
-            parts += shift([[(p.x, p.y, p.type) for p in c.points] for c in f[right].contours], x_o)
-            parts += round_glyph(bars, bar_plan, m.R, r, m.stem)
             width = x_o + f[right].width
-            out[name][r] = to_glyph(name, spec, parts, width, {})
+            out.setdefault(part, {})[r] = to_glyph(part, {}, round_glyph(bars, bar_plan, m.R, r, m.stem), width, {})
+            out[name][r] = to_glyph(name, spec, [], width, {}, [(left, (x_l, 0)), (right, (x_o, 0)), (part, (0, 0))])
 
     def stroke_offset(self, m, r, name, base, mark, out):
         """Where Allo would put a crossbar on this letter: Inter's offset, moved with the stem."""
@@ -585,36 +659,72 @@ class Builder:
 # -------------------------------------------------------------------------------------------- main
 
 def load_masters(inter, wanted, root):
-    by_pair = {}
+    """Masters to build ({(opsz, wght): Master}) and the opsz 9 fonts to fill from opsz 14
+    ({(wght, rond): path})."""
+    by_pair, sparse, small = {}, {}, {}
     for opsz, wght, rond, path, layer in designspace_masters():
+        path = root / path.relative_to(ROOT)
         if layer is not None:
-            continue
-        if wanted and (opsz, wght, rond) not in wanted:
-            continue
-        by_pair.setdefault((opsz, wght), {})[rond] = root / path.relative_to(ROOT)
+            sparse.setdefault((opsz, wght), {})[rond] = layer
+        elif opsz == 9:
+            small[(wght, rond)] = path
+        else:
+            by_pair.setdefault((opsz, wght), {})[rond] = path
     masters = {}
     for (opsz, wght), paths in by_pair.items():
-        if opsz == 9:
-            continue  # opsz 9 is opsz 14 with wider spacing (see write)
+        if wanted and not any((o, w) == (opsz, wght) or (o == 9 and opsz == 14 and w == wght) for o, w, r in wanted):
+            continue
         fonts = {r: ufoLib2.Font.open(p) for r, p in paths.items()}
-        for r in (0, 50):
-            if r not in fonts:
-                fonts[r] = ufoLib2.Font.open(root / f'sources/masters/Allo-opsz{opsz}-wght{wght}-ROND{r}.ufo')
-        masters[(opsz, wght)] = Master(inter, opsz, wght, fonts)
-    return masters
+        masters[(opsz, wght)] = Master(inter, opsz, wght, fonts, sparse.get((opsz, wght)))
+    return masters, small
+
+
+def shifted(g, d, widths):
+    """A glyph of opsz 14 as opsz 9 has it: everything d units right, d wider each side; marks
+    (zero-width components) move with it, other components already do (release.json "smallShift")."""
+    n = copy.deepcopy(g)
+    if not n.width:
+        return n
+    for c in n.contours:
+        for p in c.points:
+            p.x += d
+    for a in n.anchors:
+        a.x += d
+    for comp in n.components:
+        if not widths.get(comp.baseGlyph):
+            xx, xy, yx, yy, dx, dy = comp.transformation
+            comp.transformation = (xx, xy, yx, yy, dx + d, dy)
+    n.width += 2 * d
+    return n
+
+
+OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari)$')
 
 
 def write(font, glyphs, order_after='eth'):
+    """Put the Cyrillic glyphs in a font (any from an earlier run go first), after `order_after` in its
+    glyph order: each letter, then its parts."""
+    for name in [n for n in font.keys() if OURS.match(n)]:
+        del font[name]
     for name, g in glyphs.items():
-        if name in font:
-            del font[name]
         font.layers.defaultLayer.insertGlyph(g, name=name)
-    go = [n for n in font.lib['public.glyphOrder'] if n not in glyphs]
+    def key(n):
+        base = n.split('.')[0]
+        return (R[base]['uni'] if R.get(base, {}).get('uni') else int(base[3:], 16), n)
+    letters = sorted((n for n in glyphs if n not in POSTSCRIPT), key=key)
+    money = sorted((n for n in glyphs if n in POSTSCRIPT), key=key)
+    go = [n for n in font.lib['public.glyphOrder'] if not OURS.match(n)]
     at = go.index(order_after) + 1 if order_after in go else len(go)
-    font.lib['public.glyphOrder'] = go[:at] + [n for n in ORDER if n in glyphs] + go[at:]
+    go = go[:at] + letters + go[at:]
+    at = go.index('bitcoin') + 1 if 'bitcoin' in go else len(go)  # with Allo's other currency signs
+    font.lib['public.glyphOrder'] = go[:at] + money + go[at:]
     cats = font.lib.setdefault('public.openTypeCategories', {})
+    for n in list(cats):
+        if OURS.match(n):
+            del cats[n]
     for n in glyphs:
-        cats[n] = 'base'
+        if n in R:
+            cats[n] = 'base'
     ps = font.lib.setdefault('public.postscriptNames', {})
     for n, p in POSTSCRIPT.items():
         if n in glyphs:
@@ -622,23 +732,49 @@ def write(font, glyphs, order_after='eth'):
 
 
 def main():
+    import json
     ap = argparse.ArgumentParser()
     ap.add_argument('--masters', nargs='*', default=None, help='opsz,wght,rond triples (default: all)')
     ap.add_argument('--root', default=str(ROOT), help='repo root holding sources/ (a scratch copy for trials)')
     args = ap.parse_args()
     root = Path(args.root)
     wanted = {tuple(int(v) for v in s.split(',')) for s in args.masters} if args.masters else None
+    small_shift = json.loads((ROOT / 'release.json').read_text()).get('smallShift', 0)
     inter = Inter()
-    masters = load_masters(inter, wanted, root)
+    masters, small = load_masters(inter, wanted, root)
     b = Builder(masters)
     for (opsz, wght), m in sorted(masters.items(), key=lambda kv: kv[0] != REF):
-        ronds = sorted(r for r in m.fonts if wanted is None or (opsz, wght, r) in wanted)
+        ronds = sorted(r for r in list(m.fonts) + list(m.sparse)
+                       if wanted is None or (opsz, wght, r) in wanted or (9, wght, r) in wanted)
         print(f'opsz {opsz} wght {wght}: Inter wght {m.loc["wght"]}, R {m.R:.2f}, stem {m.stem:.1f}', flush=True)
         made = b.build_master(m, ronds)
         for r in ronds:
-            font = m.fonts[r]
-            write(font, {n: made[n][r] for n in ORDER})
-            font.save(overwrite=True)
+            if r in m.sparse:
+                continue
+            if wanted is None or (opsz, wght, r) in wanted:
+                write(m.fonts[r], {n: made[n][r] for n in made if r in made[n]})
+        for r, layer_name in m.sparse.items():
+            if r not in ronds:
+                continue
+            layer = m.fonts[50].layers[layer_name]
+            for n in [n for n in layer.keys() if OURS.match(n)]:
+                del layer[n]
+            for n in made:
+                if r in made[n]:
+                    layer.insertGlyph(made[n][r], name=n)
+        for r, font in m.fonts.items():
+            if wanted is None or (opsz, wght, r) in wanted or (r == 50 and any(x in ronds for x in m.sparse)):
+                font.save(overwrite=True)
+        if opsz == 14:
+            for r in (0, 50, 100):
+                if (wght, r) in small and (wanted is None or (9, wght, r) in wanted):
+                    font = ufoLib2.Font.open(small[(wght, r)])
+                    widths = {g.name: g.width for g in font}
+                    here = {n: made[n][r] for n in made if r in made[n]}
+                    widths.update({n: g.width for n, g in here.items()})
+                    write(font, {n: shifted(g, small_shift, widths) for n, g in here.items()})
+                    font.save(overwrite=True)
+                    print(f'  opsz 9 wght {wght} ROND {r}: opsz 14 moved {small_shift} each side', flush=True)
 
 
 if __name__ == '__main__':

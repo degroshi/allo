@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0412" format="2">
+  <advance width="1332"/>
+  <unicode hex="0412"/>
+  <anchor x="647" y="0" name="bottom"/>
+  <anchor x="323" y="443" name="cross"/>
+  <anchor x="642" y="1490" name="top"/>
+  <anchor x="146" y="1490" name="topl"/>
+  <outline>
+    <component base="B"/>
+  </outline>
+</glyph>

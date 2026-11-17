@@ -17,6 +17,9 @@ in all three ROND masters, so the masters interpolate. The rules, read off the L
 * Fillets that share a segment and do not fit on it shrink in proportion until they meet (each takes
   the smaller of its two segments' factors); both corners of a stroke end take the smaller factor; next to a
   stroke end at ROND 100 the stroke end keeps its size and the other fillet takes what is left.
+* Where a glyph asks for it (plan['bend_cap']), a fillet's end on a curve stays before the curve has
+  turned 30 degrees back against the corner. Allo's Latin doesn't do this (its g and 5 are cut through);
+  б's thin flag needs it at Black.
 * ROND 0 keeps the fillets' points: 0.0145 units on a corner between two lines (0.00725 if concave),
   zero (all four points on the corner) where a curve is involved.
 * A fillet's end on a curve is found at chord distance d from the corner and the curve is split there.
@@ -190,6 +193,36 @@ def seg_length(seg):
         s += math.dist(prev, q)
         prev = q
     return s
+
+
+COUNTER_TURN_MAX = 30.0
+
+
+def bend_distance(pts, from_end, sign):
+    """Chord distance from a cubic's end (from_end) or start to where it has turned COUNTER_TURN_MAX
+    degrees against the corner's turn (sign: +1 left, -1 right), as the underside of б's flag does:
+    a fillet carried past that point would cut across the stroke."""
+    def direction(t):
+        p0, p1, p2, p3 = pts
+        mt = 1 - t
+        dx = 3 * mt * mt * (p1[0] - p0[0]) + 6 * mt * t * (p2[0] - p1[0]) + 3 * t * t * (p3[0] - p2[0])
+        dy = 3 * mt * mt * (p1[1] - p0[1]) + 6 * mt * t * (p2[1] - p1[1]) + 3 * t * t * (p3[1] - p2[1])
+        return math.atan2(dy, dx), math.hypot(dx, dy)
+    corner = pts[3] if from_end else pts[0]
+    ts = [1 - k / 200 for k in range(201)] if from_end else [k / 200 for k in range(201)]
+    ref = None
+    for t in ts:
+        a, size = direction(t)
+        if size < 1e-6:
+            continue
+        if ref is None:
+            ref = a
+            continue
+        turn = (math.degrees(a - ref) + 180) % 360 - 180   # forward turning between t and the corner
+        forward = -turn if from_end else turn
+        if -sign * forward >= COUNTER_TURN_MAX:
+            return math.dist(cubic_point(pts, t), corner)
+    return float('inf')
 
 
 def t_at_chord(pts, d, from_end):
@@ -399,6 +432,17 @@ def round_contour(contour, plan, R, rond, stem=None):
     def fits(i):
         j = (i + 1) % n
         return seg_length(segs[i]), j
+    # a fillet ends before its curve has turned TURN_MAX from the corner (б's flag at Black: a short,
+    # tight curve next to the corner would otherwise be cut past its bend)
+    def cap_bends():
+        for i in range(n):
+            if not plan.get('bend_cap') or not plan['vertex'][i] or d[i] <= 0:
+                continue
+            sign = 1 if signed_turn(seg_tangent_end(segs[i - 1]), seg_tangent_start(segs[i])) > 0 else -1
+            for seg, at_end in ((segs[i - 1], True), (segs[i], False)):
+                if seg[0] == 'curve':
+                    d[i] = min(d[i], bend_distance(seg[1], at_end, sign))
+    cap_bends()
     factor = [1.0] * n   # per segment, from the nominal sizes; each fillet takes the smaller of its two
     for i in range(n):
         L, j = fits(i)
@@ -432,6 +476,7 @@ def round_contour(contour, plan, R, rond, stem=None):
             if d[fixed] + d[free] > L:
                 d[free] = max(MIN_D, L - d[fixed])
                 d[fixed] = min(d[fixed], L - d[free])
+        cap_bends()
     # trim every segment
     trimmed = []
     for i, (kind, pts) in enumerate(segs):

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0457" format="2">
+  <advance width="475"/>
+  <unicode hex="0457"/>
+  <anchor x="238" y="0" name="bottom"/>
+  <anchor x="238" y="595" name="cross"/>
+  <anchor x="326" y="0" name="ogonek"/>
+  <anchor x="239" y="1538" name="top"/>
+  <outline>
+    <component base="idieresis"/>
+  </outline>
+</glyph>

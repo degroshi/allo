@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni044E.bar" format="2">
+  <advance width="1565"/>
+  <outline>
+    <contour>
+      <point x="235" y="450" type="line"/>
+      <point x="614" y="450" type="line"/>
+      <point x="614" y="606" type="line"/>
+      <point x="235" y="606" type="line"/>
+    </contour>
+  </outline>
+</glyph>
