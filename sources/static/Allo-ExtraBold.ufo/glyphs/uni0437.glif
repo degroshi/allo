@@ -4,7 +4,7 @@
   <unicode hex="0437"/>
   <anchor x="535" y="0" name="cedilla"/>
   <anchor x="535" y="1118" name="top"/>
-  <anchor x="529" y="0" name="bottom"/>
+  <anchor x="534" y="0" name="bottom"/>
   <outline>
     <contour>
       <point x="527.875" y="-15.875" type="curve"/>

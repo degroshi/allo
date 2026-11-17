@@ -2,7 +2,7 @@
 <glyph name="uni0444" format="2">
   <advance width="1476"/>
   <unicode hex="0444"/>
-  <anchor x="738" y="1097" name="top"/>
+  <anchor x="738" y="1490" name="top"/>
   <anchor x="738" y="0" name="bottom"/>
   <outline>
     <contour>
@@ -38,22 +38,22 @@
       <point x="865" y="174" type="curve"/>
     </contour>
     <contour>
-      <point x="610.0" y="-360.91630560342617"/>
-      <point x="667.0836943965738" y="-418.0"/>
-      <point x="737.5" y="-418.0" type="curve"/>
-      <point x="737.5" y="-418.0" type="line"/>
-      <point x="807.9163056034262" y="-418.0"/>
-      <point x="865.0" y="-360.91630560342617"/>
-      <point x="865.0" y="-290.5" type="curve"/>
-      <point x="865.0" y="1362.5" type="line"/>
-      <point x="865.0" y="1432.9163056034263"/>
-      <point x="807.9163056034262" y="1490.0"/>
-      <point x="737.5" y="1490.0" type="curve"/>
-      <point x="737.5" y="1490.0" type="line"/>
-      <point x="667.0836943965738" y="1490.0"/>
-      <point x="610.0" y="1432.9163056034263"/>
-      <point x="610.0" y="1362.5" type="curve"/>
-      <point x="610.0" y="-290.5" type="line"/>
+      <point x="610.0" y="-332.91630560342617"/>
+      <point x="667.0836943965738" y="-390.0"/>
+      <point x="737.5" y="-390.0" type="curve"/>
+      <point x="737.5" y="-390.0" type="line"/>
+      <point x="807.9163056034262" y="-390.0"/>
+      <point x="865.0" y="-332.91630560342617"/>
+      <point x="865.0" y="-262.5" type="curve"/>
+      <point x="865.0" y="1412.5" type="line"/>
+      <point x="865.0" y="1482.9163056034263"/>
+      <point x="807.9163056034262" y="1540.0"/>
+      <point x="737.5" y="1540.0" type="curve"/>
+      <point x="737.5" y="1540.0" type="line"/>
+      <point x="667.0836943965738" y="1540.0"/>
+      <point x="610.0" y="1482.9163056034263"/>
+      <point x="610.0" y="1412.5" type="curve"/>
+      <point x="610.0" y="-262.5" type="line"/>
     </contour>
   </outline>
   <lib>

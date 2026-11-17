@@ -2,7 +2,7 @@
 <glyph name="uni041A" format="2">
   <advance width="1532"/>
   <unicode hex="041A"/>
-  <anchor x="667" y="0" name="bottom"/>
+  <anchor x="702" y="0" name="bottom"/>
   <anchor x="1322" y="0" name="cyrtic"/>
   <anchor x="848" y="1490" name="top"/>
   <outline>

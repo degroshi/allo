@@ -6,9 +6,9 @@
   <anchor x="726" y="1118" name="top"/>
   <outline>
     <contour>
-      <point x="652.955" y="-418.0"/>
-      <point x="685.686" y="-390.045"/>
-      <point x="700.535" y="-296.295" type="curve"/>
+      <point x="657.39" y="-390.0"/>
+      <point x="690.121" y="-362.045"/>
+      <point x="704.969" y="-268.295" type="curve"/>
       <point x="732.575" y="-94.0" type="line"/>
       <point x="1249.83" y="907.52" type="line"/>
       <point x="1316.164" y="1035.956"/>
@@ -37,11 +37,11 @@
       <point x="103.046" y="1064.987"/>
       <point x="126.698" y="945.671" type="curve"/>
       <point x="333.783" y="-99.0" type="line"/>
-      <point x="309.684" y="-251.155" type="line"/>
-      <point x="291.129" y="-368.308"/>
-      <point x="333.57" y="-418.0"/>
-      <point x="452.183" y="-418.0" type="curve"/>
-      <point x="558.036" y="-418.0" type="line"/>
+      <point x="314.119" y="-223.155" type="line"/>
+      <point x="295.564" y="-340.308"/>
+      <point x="338.005" y="-390.0"/>
+      <point x="456.617" y="-390.0" type="curve"/>
+      <point x="562.471" y="-390.0" type="line"/>
     </contour>
   </outline>
 </glyph>

@@ -3,18 +3,18 @@
   <advance width="1273"/>
   <unicode hex="0444"/>
   <anchor x="637" y="0" name="bottom"/>
-  <anchor x="637" y="1118" name="top"/>
+  <anchor x="637" y="1490" name="top"/>
   <outline>
     <contour>
       <point x="591.0" y="-24.0" type="curve"/>
-      <point x="591.0" y="-385.617" type="line"/>
-      <point x="591.0" y="-409.538"/>
-      <point x="599.462" y="-418.0"/>
-      <point x="623.383" y="-418.0" type="curve"/>
-      <point x="650.283" y="-418.0" type="line"/>
-      <point x="674.204" y="-418.0"/>
-      <point x="682.667" y="-409.538"/>
-      <point x="682.667" y="-385.617" type="curve"/>
+      <point x="591.0" y="-357.617" type="line"/>
+      <point x="591.0" y="-381.538"/>
+      <point x="599.462" y="-390.0"/>
+      <point x="623.383" y="-390.0" type="curve"/>
+      <point x="650.283" y="-390.0" type="line"/>
+      <point x="674.204" y="-390.0"/>
+      <point x="682.667" y="-381.538"/>
+      <point x="682.667" y="-357.617" type="curve"/>
       <point x="682.667" y="-24.0" type="line"/>
       <point x="960.0" y="-24.0"/>
       <point x="1161.667" y="219.667"/>
@@ -22,14 +22,14 @@
       <point x="1161.667" y="890.667"/>
       <point x="960.0" y="1133.333"/>
       <point x="682.667" y="1133.333" type="curve"/>
-      <point x="682.667" y="1457.617" type="line"/>
-      <point x="682.667" y="1481.538"/>
-      <point x="674.204" y="1490.0"/>
-      <point x="650.283" y="1490.0" type="curve"/>
-      <point x="623.383" y="1490.0" type="line"/>
-      <point x="599.462" y="1490.0"/>
-      <point x="591.0" y="1481.538"/>
-      <point x="591.0" y="1457.617" type="curve"/>
+      <point x="682.667" y="1507.617" type="line"/>
+      <point x="682.667" y="1531.538"/>
+      <point x="674.204" y="1540.0"/>
+      <point x="650.283" y="1540.0" type="curve"/>
+      <point x="623.383" y="1540.0" type="line"/>
+      <point x="599.462" y="1540.0"/>
+      <point x="591.0" y="1531.538"/>
+      <point x="591.0" y="1507.617" type="curve"/>
       <point x="591.0" y="1133.333" type="line"/>
       <point x="314.0" y="1133.333"/>
       <point x="112.333" y="890.667"/>

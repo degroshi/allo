@@ -6,13 +6,13 @@
   <anchor x="604" y="0" name="bottom"/>
   <outline>
     <contour>
-      <point x="455.25" y="-389.83"/>
-      <point x="483.42" y="-418.0"/>
-      <point x="563.048" y="-418.0" type="curve"/>
-      <point x="644.827" y="-418.0" type="line"/>
-      <point x="724.455" y="-418.0"/>
-      <point x="752.625" y="-389.83"/>
-      <point x="752.625" y="-310.202" type="curve"/>
+      <point x="455.25" y="-361.83"/>
+      <point x="483.42" y="-390.0"/>
+      <point x="563.048" y="-390.0" type="curve"/>
+      <point x="644.827" y="-390.0" type="line"/>
+      <point x="724.455" y="-390.0"/>
+      <point x="752.625" y="-361.83"/>
+      <point x="752.625" y="-282.202" type="curve"/>
       <point x="752.625" y="-55.906" type="line"/>
       <point x="1132.575" y="972.997" type="line"/>
       <point x="1167.187" y="1067.109"/>
@@ -41,7 +41,7 @@
       <point x="41.293" y="1067.212"/>
       <point x="75.754" y="973.13" type="curve"/>
       <point x="455.25" y="-58.75" type="line"/>
-      <point x="455.25" y="-310.202" type="line"/>
+      <point x="455.25" y="-282.202" type="line"/>
     </contour>
   </outline>
 </glyph>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni045B" format="2">
+  <advance width="1190"/>
+  <unicode hex="045B"/>
+  <anchor x="598" y="0" name="bottom"/>
+  <anchor x="246" y="0" name="cedilla"/>
+  <anchor x="324" y="1290" name="cross"/>
+  <anchor x="819" y="0" name="lfthook"/>
+  <anchor x="244" y="1490" name="top"/>
+  <outline>
+    <component base="hbar"/>
+  </outline>
+</glyph>

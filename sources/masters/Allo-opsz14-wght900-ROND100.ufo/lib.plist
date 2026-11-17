@@ -298,7 +298,10 @@
       <string>Thorn</string>
       <string>eth</string>
       <string>Sigma</string>
+      <string>uni0400</string>
       <string>uni0401</string>
+      <string>uni0402</string>
+      <string>uni0403</string>
       <string>uni0404</string>
       <string>uni0404.bar</string>
       <string>uni0405</string>
@@ -307,7 +310,13 @@
       <string>uni0407</string>
       <string>uni0407.1</string>
       <string>uni0408</string>
+      <string>uni0409</string>
+      <string>uni040A</string>
+      <string>uni040B</string>
+      <string>uni040C</string>
+      <string>uni040D</string>
       <string>uni040E</string>
+      <string>uni040F</string>
       <string>uni0410</string>
       <string>uni0411</string>
       <string>uni0412</string>
@@ -375,14 +384,23 @@
       <string>uni044E</string>
       <string>uni044E.bar</string>
       <string>uni044F</string>
+      <string>uni0450</string>
       <string>uni0451</string>
+      <string>uni0452</string>
+      <string>uni0453</string>
       <string>uni0454</string>
       <string>uni0454.bar</string>
       <string>uni0455</string>
       <string>uni0456</string>
       <string>uni0457</string>
       <string>uni0458</string>
+      <string>uni0459</string>
+      <string>uni045A</string>
+      <string>uni045B</string>
+      <string>uni045C</string>
+      <string>uni045D</string>
       <string>uni045E</string>
+      <string>uni045F</string>
       <string>uni0490</string>
       <string>uni0491</string>
       <string>uni0492</string>
@@ -1354,7 +1372,13 @@
       <string>base</string>
       <key>uni021A</key>
       <string>base</string>
+      <key>uni0400</key>
+      <string>base</string>
       <key>uni0401</key>
+      <string>base</string>
+      <key>uni0402</key>
+      <string>base</string>
+      <key>uni0403</key>
       <string>base</string>
       <key>uni0404</key>
       <string>base</string>
@@ -1370,7 +1394,19 @@
       <string>base</string>
       <key>uni0408</key>
       <string>base</string>
+      <key>uni0409</key>
+      <string>base</string>
+      <key>uni040A</key>
+      <string>base</string>
+      <key>uni040B</key>
+      <string>base</string>
+      <key>uni040C</key>
+      <string>base</string>
+      <key>uni040D</key>
+      <string>base</string>
       <key>uni040E</key>
+      <string>base</string>
+      <key>uni040F</key>
       <string>base</string>
       <key>uni0410</key>
       <string>base</string>
@@ -1502,7 +1538,13 @@
       <string>base</string>
       <key>uni044F</key>
       <string>base</string>
+      <key>uni0450</key>
+      <string>base</string>
       <key>uni0451</key>
+      <string>base</string>
+      <key>uni0452</key>
+      <string>base</string>
+      <key>uni0453</key>
       <string>base</string>
       <key>uni0454</key>
       <string>base</string>
@@ -1514,7 +1556,19 @@
       <string>base</string>
       <key>uni0458</key>
       <string>base</string>
+      <key>uni0459</key>
+      <string>base</string>
+      <key>uni045A</key>
+      <string>base</string>
+      <key>uni045B</key>
+      <string>base</string>
+      <key>uni045C</key>
+      <string>base</string>
+      <key>uni045D</key>
+      <string>base</string>
       <key>uni045E</key>
+      <string>base</string>
+      <key>uni045F</key>
       <string>base</string>
       <key>uni0490</key>
       <string>base</string>

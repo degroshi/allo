@@ -108,9 +108,19 @@ ref('uni04B0', 0x04B0, 'Y', [('crossbar.uc', 'stroke')])
 turned('uni04BA', 0x04BA, 'rotate', 'uni0427')
 inter('uni04D8', 0x04D8, 'Schwacyrillic', ('O', 'O'))
 bar('uni04E8', 0x04E8, 'O', 'afii10147')
+# Serbian and Macedonian
+ref('uni0400', 0x0400, 'Egrave')
+inter('uni0402', 0x0402, 'afii10051', ('T', 'B'), make='join')
+ref('uni0403', 0x0403, 'uni0413', [('acutecomb', 'top')])
+inter('uni0409', 0x0409, 'afii10058', ('A', 'B'))
+inter('uni040A', 0x040A, 'afii10059', ('H', 'B'))
+inter('uni040B', 0x040B, 'Tshe-cy', ('T', 'H'))
+ref('uni040C', 0x040C, 'uni041A', [('acutecomb', 'top')])
+ref('uni040D', 0x040D, 'uni0418', [('gravecomb', 'top')])
+inter('uni040F', 0x040F, 'afii10145', ('H', 'H'))
 # lowercase
 ref('uni0430', 0x0430, 'a')
-inter('uni0431', 0x0431, 'becyrillic', ('o', 'o'), bend_cap=True)  # its thin flag at Black
+inter('uni0431', 0x0431, 'becyrillic', ('o', 'o'), bend_cap=True, make='flag')  # its thin flag at Black
 inter('uni0432', 0x0432, 'vecyrillic', ('n', 's'))
 inter('uni0433', 0x0433, 'ge-cy', ('n', 'r'))
 inter('uni0434', 0x0434, 'decyrillic', ('n', 'n'))
@@ -129,7 +139,7 @@ ref('uni0440', 0x0440, 'p')
 ref('uni0441', 0x0441, 'c')
 inter('uni0442', 0x0442, 'tecyrillic', ('T', 'T'))
 ref('uni0443', 0x0443, 'y')
-inter('uni0444', 0x0444, 'efcyrillic', ('o', 'o'), union=False)
+inter('uni0444', 0x0444, 'efcyrillic', ('o', 'o'), union=False, make=('ascender', 'descender'))
 ref('uni0445', 0x0445, 'x')
 inter('uni0446', 0x0446, 'tsecyrillic', ('n', 'n'))
 inter('uni0447', 0x0447, 'checyrillic', ('n', 'n'))
@@ -152,11 +162,21 @@ inter('uni0491', 0x0491, 'gheupturncyrillic', ('n', 'r'))
 ref('uni0493', 0x0493, 'uni0433', [('crossbar', 'stroke')])
 inter('uni049B', 0x049B, 'kadescendercyrillic', ('n', 'k'))
 inter('uni04A3', 0x04A3, 'endescendercyrillic', ('n', 'n'))
-inter('uni04AF', 0x04AF, 'ustraightcyrillic', ('v', 'v'))
+inter('uni04AF', 0x04AF, 'ustraightcyrillic', ('v', 'v'), make='descender')
 ref('uni04B1', 0x04B1, 'uni04AF', [('crossbar', 'stroke')])
 ref('uni04BB', 0x04BB, 'h')
 turned('uni04D9', 0x04D9, 'rotate', 'e', lower=True)
 bar('uni04E9', 0x04E9, 'o', 'obarredcyrillic')
+# Serbian and Macedonian
+ref('uni0450', 0x0450, 'egrave')
+inter('uni0452', 0x0452, 'djecyrillic', ('hbar', 'hbar'), make=('join', 'ascender'))
+ref('uni0453', 0x0453, 'uni0433', [('acutecomb', 'top')])
+inter('uni0459', 0x0459, 'ljecyrillic', ('n', 'o'), make='lje')
+inter('uni045A', 0x045A, 'njecyrillic', ('n', 'o'))
+ref('uni045B', 0x045B, 'hbar')
+ref('uni045C', 0x045C, 'uni043A', [('acutecomb', 'top')])
+ref('uni045D', 0x045D, 'uni0438', [('gravecomb', 'top')])
+inter('uni045F', 0x045F, 'dzhecyrillic', ('u', 'u'))
 # currency
 inter('tenge', 0x20B8, 'tenge', ('T', 'T'))
 inter('lari', 0x20BE, 'lari', ('O', 'O'))
@@ -306,6 +326,18 @@ class Master:
         g = self.inter.decomposed_at(source, self.loc)
         return [to_cubic(c) for c in g['contours']], g['width'], dict(g['anchors'])
 
+    def heights(self):
+        """Allo's ascenders are 50 units taller than Inter's and its descenders 28 shorter (h, p):
+        ((Inter's ascender, Allo's), (Inter's descender, Allo's)) at this master."""
+        if not hasattr(self, '_heights'):
+            out = []
+            for name, k in (('h', 3), ('p', 1)):
+                i = bbox(self.inter.decomposed_at(name, self.loc)['contours'])[k]
+                a = bbox(ufo_glyph_contours(self.fonts[0], name))[k]
+                out.append((i, a))
+            self._heights = tuple(out)
+        return self._heights
+
 
 # ------------------------------------------------------------------------------------- make sharp
 
@@ -345,13 +377,109 @@ def upturn(m, contours, width):
     return rest + [fixed], width
 
 
-MAKERS = {'straight_u': straight_u, 'upturn': upturn}
+def stem_edges(contour):
+    """The vertical line edges of a contour: [(x, y0, y1)]."""
+    on = [p for p in contour if p[2] is not None]
+    out = []
+    for (x0, y0, t0), (x1, y1, t1) in zip(on, on[1:] + on[:1]):
+        if t1 == 'line' and abs(x0 - x1) < 0.01 and abs(y0 - y1) > 50:
+            out.append((x0, min(y0, y1), max(y0, y1)))
+    return out
+
+
+def join(m, contours, width, tol=6):
+    """Parts laid on a stem (Ђ's hook on T, ђ's hook on ћ's leg) as Inter draws them stop a few units
+    short of the stem's edge at some weights and not at others, which would give the joined outline a
+    step there at some masters only. Each part's sides within `tol` of an edge of the first contour
+    (the letter the part is laid on) are moved onto it, off-curve points with them."""
+    edges = stem_edges(contours[0])
+    out = [contours[0]]
+    for c in contours[1:]:
+        moves = {}
+        for x, y, t in c:
+            if t is None:
+                continue
+            for ex, y0, y1 in edges:
+                if 0 < abs(x - ex) <= tol and y0 - tol <= y <= y1 + tol:
+                    moves[x] = ex
+        out.append(unflatten([(moves.get(x, x), y, t) for x, y, t in c]))
+    return out, width
+
+
+def unflatten(c):
+    """A curve drawn dead straight at one master (the end of ђ's hook at Thin) comes out of overlap
+    removal as a line, where the other masters keep a curve. Its handles move 1 unit off the line,
+    so it stays a curve."""
+    n = len(c)
+    out = list(c)
+    for i in range(n):
+        if c[i][2] != 'curve':
+            continue
+        h1, h2, p0 = c[i - 1], c[i - 2], c[i - 3]
+        if h1[2] is not None or h2[2] is not None or p0[2] is None:
+            continue
+        p1 = c[i]
+        dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+        length = math.hypot(dx, dy)
+        if length < 1:
+            continue
+        off = [abs((h[0] - p0[0]) * dy - (h[1] - p0[1]) * dx) / length for h in (h1, h2)]
+        if max(off) < 0.5:
+            nx, ny = -dy / length, dx / length
+            for k in (i - 1, i - 2):
+                x, y, t = out[k]
+                out[k] = (x + nx, y + ny, t)
+    return out
+
+
+def lje(m, contours, width):
+    """љ: Inter sets ь beside л, their stems overlapping by a different amount at each weight (at Thin
+    not at all). Here ь's stem is laid on л's right stem, one stem as in њ and Љ, and the letter
+    narrows by as much."""
+    el, *soft = contours
+    l_edges = sorted(e[0] for e in stem_edges(el) if e[1] < 1)  # л's stem edges standing on the baseline
+    s_edges = sorted(e[0] for c in soft for e in stem_edges(c) if e[1] < 1)
+    dx = l_edges[-2] - s_edges[0]  # ь's stem, left side on л's right stem's left side
+    soft = shift(soft, dx)
+    contours, width = join(m, [el] + soft, width + dx, tol=3)
+    return contours, width
+
+
+def ascender(m, contours, width):
+    """Stems that reach Inter's ascender (ђ, ф) reach Allo's, as Allo's b d h do."""
+    (i, a), _ = m.heights()
+    return [[(x, y + (a - i) if abs(y - i) < 1 else y, t) for x, y, t in c] for c in contours], width
+
+
+def descender(m, contours, width):
+    """Stems that reach Inter's descender (ф, ү) stop at Allo's, as Allo's p and y do."""
+    _, (i, a) = m.heights()
+    return [[(x, y + (a - i) if abs(y - i) < 1 else y, t) for x, y, t in c] for c in contours], width
+
+
+def flag(m, contours, width):
+    """б: its flag reaches Allo's ascender, as b does. The flag moves up whole, so its stroke keeps its
+    thickness, and the stroke that rises to it from the bowl's top stretches to meet it."""
+    (i, a), _ = m.heights()
+    # Inter's outer contour, on-curve points: bottom, right, bowl top, the join (2), the flag's
+    # underside, the terminal (2, at the ascender), the flag's top, the left side (2)
+    on = [p for p in max(contours, key=len) if p[2] is not None]
+    assert len(on) == 11 and abs(on[6][1] - i) < 1 and abs(on[7][1] - i) < 1, 'not Inter\'s б'
+    top_bowl, lo_flag = on[2][1], on[5][1]
+    def lift(y):
+        return y + (a - i) * min(max((y - top_bowl) / (lo_flag - top_bowl), 0), 1)
+    return [[(x, lift(y), t) for x, y, t in c] for c in contours], width
+
+
+MAKERS = {'straight_u': straight_u, 'upturn': upturn, 'join': join, 'lje': lje,
+          'ascender': ascender, 'descender': descender, 'flag': flag}
 
 
 def sharp_inter(m, spec):
     contours, width, anchors = m.inter_parts(spec['source'])
-    if spec.get('make'):
-        contours, width = MAKERS[spec['make']](m, contours, width)
+    make = spec.get('make') or ()
+    for k in ([make] if isinstance(make, str) else make):
+        contours, width = MAKERS[k](m, contours, width)
     if spec.get('union', True) and len(contours) > 1:
         contours = union(contours)
     dl, _ = m.delta(spec['sb'][0])
@@ -535,20 +663,28 @@ class Builder:
 
     def anchor(self, m, out):
         """Every Cyrillic letter takes marks: where a recipe gave it no top or bottom anchor, they go
-        over the middle of its outline, at the x-height or cap height and on the baseline."""
+        over the middle of its outline, at the x-height or cap height and on the baseline; over an
+        ascender's top (б ђ ф) at cap height, as Allo's h and l have them. They are measured on the
+        ROND 0 outline, so every ROND has the same anchors."""
         for name, by_rond in out.items():
             spec = R.get(name)
             if not spec or not spec.get('uni') or not chr(spec['uni']).isalpha():
                 continue
+            r0 = 0 if 0 in by_rond else min(by_rond)
+            contours = self.decompose(m, r0, by_rond[r0], out)
+            x0, _, x1, y1 = bbox(contours)
+            x = round((x0 + x1) / 2)
+            if chr(spec['uni']).isupper():
+                top = (x, m.cap)
+            elif y1 > m.xheight + 200:
+                tops = [p[0] for c in contours for p in c if p[2] is not None and p[1] > y1 - 1]
+                top = (round((min(tops) + max(tops)) / 2), m.cap)
+            else:
+                top = (x, m.xheight)
             for r, g in by_rond.items():
                 have = {a.name for a in g.anchors}
-                if {'top', 'bottom'} <= have:
-                    continue
-                contours = self.decompose(m, r, g, out)
-                x0, _, x1, _ = bbox(contours)
-                x = round((x0 + x1) / 2)
                 if 'top' not in have:
-                    g.anchors.append(Anchor(x, m.cap if chr(spec['uni']).isupper() else m.xheight, 'top'))
+                    g.anchors.append(Anchor(*top, 'top'))
                 if 'bottom' not in have:
                     g.anchors.append(Anchor(x, 0, 'bottom'))
 
