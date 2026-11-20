@@ -297,6 +297,7 @@
       <string>zcaron</string>
       <string>Thorn</string>
       <string>eth</string>
+      <string>Xi</string>
       <string>Sigma</string>
       <string>uni0400</string>
       <string>uni0401</string>
@@ -431,8 +432,17 @@
       <string>afii57636</string>
       <string>baht</string>
       <string>bitcoin</string>
+      <string>dram</string>
+      <string>taka</string>
+      <string>riel</string>
+      <string>coloncurrency</string>
+      <string>rupee</string>
+      <string>kip</string>
       <string>tugrik</string>
+      <string>guarani</string>
+      <string>cedi</string>
       <string>tenge</string>
+      <string>manat</string>
       <string>lari</string>
       <string>zero</string>
       <string>one</string>
@@ -1004,6 +1014,8 @@
       <string>base</string>
       <key>X</key>
       <string>base</string>
+      <key>Xi</key>
+      <string>base</string>
       <key>Y</key>
       <string>base</string>
       <key>Yacute</key>
@@ -1096,12 +1108,16 @@
       <string>base</string>
       <key>cdotaccent</key>
       <string>base</string>
+      <key>cedi</key>
+      <string>base</string>
       <key>cedillacomb</key>
       <string>mark</string>
       <key>cent</key>
       <string>base</string>
       <key>circumflexcomb</key>
       <string>mark</string>
+      <key>coloncurrency</key>
+      <string>base</string>
       <key>commaaccent</key>
       <string>mark</string>
       <key>d</key>
@@ -1124,6 +1140,8 @@
       <string>base</string>
       <key>dotaccentcomb</key>
       <string>mark</string>
+      <key>dram</key>
+      <string>base</string>
       <key>e</key>
       <string>base</string>
       <key>eacute</key>
@@ -1158,6 +1176,8 @@
       <string>base</string>
       <key>gravecomb</key>
       <string>mark</string>
+      <key>guarani</key>
+      <string>base</string>
       <key>h</key>
       <string>base</string>
       <key>hbar</key>
@@ -1196,6 +1216,8 @@
       <string>base</string>
       <key>kcommaaccent</key>
       <string>base</string>
+      <key>kip</key>
+      <string>base</string>
       <key>l</key>
       <string>base</string>
       <key>l.ss02</key>
@@ -1230,6 +1252,8 @@
       <string>base</string>
       <key>macroncomb</key>
       <string>mark</string>
+      <key>manat</key>
+      <string>base</string>
       <key>n</key>
       <string>base</string>
       <key>nacute</key>
@@ -1284,10 +1308,14 @@
       <string>base</string>
       <key>rcommaaccent</key>
       <string>base</string>
+      <key>riel</key>
+      <string>base</string>
       <key>ringcomb</key>
       <string>mark</string>
       <key>ringcomb.uc</key>
       <string>mark</string>
+      <key>rupee</key>
+      <string>base</string>
       <key>s</key>
       <string>base</string>
       <key>sacute</key>
@@ -1301,6 +1329,8 @@
       <key>scommaaccent</key>
       <string>base</string>
       <key>t</key>
+      <string>base</string>
+      <key>taka</key>
       <string>base</string>
       <key>tbar</key>
       <string>base</string>
@@ -1695,6 +1725,8 @@
       <string>uni238B</string>
       <key>caroncomb</key>
       <string>uni030C</string>
+      <key>cedi</key>
+      <string>uni20B5</string>
       <key>cedillacomb</key>
       <string>uni0327</string>
       <key>circleblack</key>
@@ -1703,6 +1735,8 @@
       <string>uni0302</string>
       <key>clockwiseOpenCircleArrow</key>
       <string>uni21BB</string>
+      <key>coloncurrency</key>
+      <string>colonmonetary</string>
       <key>commaaccent</key>
       <string>uni0326</string>
       <key>control</key>
@@ -1731,6 +1765,8 @@
       <string>arrowdown</string>
       <key>downArrowHead</key>
       <string>uni2304</string>
+      <key>dram</key>
+      <string>uni058F</string>
       <key>emspace</key>
       <string>uni2003</string>
       <key>enspace</key>
@@ -1741,6 +1777,8 @@
       <string>uni2007</string>
       <key>gcommaaccent</key>
       <string>uni0123</string>
+      <key>guarani</key>
+      <string>uni20B2</string>
       <key>guillemetleft</key>
       <string>guillemotleft</string>
       <key>guillemetright</key>
@@ -1759,6 +1797,8 @@
       <string>uni0237</string>
       <key>kcommaaccent</key>
       <string>uni0137</string>
+      <key>kip</key>
+      <string>uni20AD</string>
       <key>lari</key>
       <string>uni20BE</string>
       <key>lcommaaccent</key>
@@ -1785,6 +1825,8 @@
       <string>arrowdblboth.case</string>
       <key>macroncomb</key>
       <string>uni0304</string>
+      <key>manat</key>
+      <string>uni20BC</string>
       <key>micro</key>
       <string>uni00B5</string>
       <key>naira</key>
@@ -1821,6 +1863,8 @@
       <string>uni0157</string>
       <key>returnsymbol</key>
       <string>uni23CE</string>
+      <key>riel</key>
+      <string>uni17DB</string>
       <key>rightArrow</key>
       <string>arrowright</string>
       <key>rightArrow.case</key>
@@ -1833,6 +1877,8 @@
       <string>uni030A</string>
       <key>ringcomb.uc</key>
       <string>uni030A.uc</string>
+      <key>rupee</key>
+      <string>uni20A8</string>
       <key>scommaaccent</key>
       <string>uni0219</string>
       <key>slashshort.lc</key>
@@ -1847,6 +1893,8 @@
       <string>uni2199.case</string>
       <key>spaceopenbox</key>
       <string>uni2423</string>
+      <key>taka</key>
+      <string>uni09F3</string>
       <key>tcedilla</key>
       <string>uni0163</string>
       <key>tcommaaccent</key>

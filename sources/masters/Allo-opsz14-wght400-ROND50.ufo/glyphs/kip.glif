@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="kip" format="2">
+  <advance width="1429"/>
+  <unicode hex="20AD"/>
+  <outline>
+    <contour>
+      <point x="1388.0" y="857.1383699348557"/>
+      <point x="1371.1383699348557" y="874.0"/>
+      <point x="1323.475" y="874.0" type="curve"/>
+      <point x="105.52499999999999" y="874.0" type="line"/>
+      <point x="57.86163006514429" y="874.0"/>
+      <point x="41.0" y="857.1383699348557"/>
+      <point x="41.0" y="809.475" type="curve"/>
+      <point x="41.0" y="772.525" type="line"/>
+      <point x="41.0" y="724.8616300651443"/>
+      <point x="57.86163006514429" y="708.0"/>
+      <point x="105.52499999999999" y="708.0" type="curve"/>
+      <point x="1323.475" y="708.0" type="line"/>
+      <point x="1371.1383699348557" y="708.0"/>
+      <point x="1388.0" y="724.8616300651443"/>
+      <point x="1388.0" y="772.525" type="curve"/>
+      <point x="1388.0" y="809.475" type="line"/>
+    </contour>
+    <contour>
+      <point x="458.0" y="1473.1383699348557"/>
+      <point x="441.13836993485575" y="1490.0"/>
+      <point x="393.475" y="1490.0" type="curve"/>
+      <point x="334.525" y="1490.0" type="line"/>
+      <point x="286.86163006514425" y="1490.0"/>
+      <point x="270.0" y="1473.1383699348557"/>
+      <point x="270.0" y="1425.475" type="curve"/>
+      <point x="270.0" y="64.52499999999999" type="line"/>
+      <point x="270.0" y="16.86163006514429"/>
+      <point x="286.86163006514425" y="0.0"/>
+      <point x="334.525" y="0.0" type="curve"/>
+      <point x="393.475" y="0.0" type="line"/>
+      <point x="441.13836993485575" y="0.0"/>
+      <point x="458.0" y="16.86163006514429"/>
+      <point x="458.0" y="64.52499999999999" type="curve"/>
+      <point x="458.0" y="1425.475" type="line"/>
+    </contour>
+    <contour>
+      <point x="1343.9280959865962" y="1443.5919595761527"/>
+      <point x="1323.6841636608872" y="1490.0"/>
+      <point x="1257.95" y="1490.0" type="curve"/>
+      <point x="1193.62" y="1490.0" type="line"/>
+      <point x="1149.648764535139" y="1490.0"/>
+      <point x="1136.8564220082078" y="1484.3389749729974"/>
+      <point x="1107.287008808215" y="1451.794861045678" type="curve"/>
+      <point x="476.0" y="757.0" type="line"/>
+      <point x="425.0" y="757.0" type="line"/>
+      <point x="425.0" y="442.0" type="line"/>
+      <point x="650.0" y="692.0" type="line"/>
+      <point x="664.0" y="711.0" type="line"/>
+      <point x="1299.2110749171911" y="1395.4113794750924" type="line"/>
+    </contour>
+    <contour>
+      <point x="1153.1112674459343" y="6.542953966499901"/>
+      <point x="1166.1676160899565" y="0.0"/>
+      <point x="1209.62" y="0.0" type="curve"/>
+      <point x="1254.95" y="0.0" type="line"/>
+      <point x="1325.6425693467027" y="0.0"/>
+      <point x="1348.585215046151" y="46.38300032476373"/>
+      <point x="1305.6847289688553" y="102.57007762168422" type="curve"/>
+      <point x="735.0" y="850.0" type="line"/>
+      <point x="629.0" y="708.0" type="line"/>
+      <point x="1127.1028114370874" y="41.35200284034412" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.truetype.overlap</key>
+      <true/>
+    </dict>
+  </lib>
+</glyph>

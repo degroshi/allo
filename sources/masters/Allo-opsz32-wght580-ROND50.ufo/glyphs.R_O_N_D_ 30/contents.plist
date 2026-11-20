@@ -136,6 +136,8 @@
     <string>leftH_ookA_rrow.glif</string>
     <key>m</key>
     <string>m.glif</string>
+    <key>manat</key>
+    <string>manat.glif</string>
     <key>micro</key>
     <string>micro.glif</string>
     <key>n</key>
@@ -172,6 +174,8 @@
     <string>quoteright.glif</string>
     <key>r</key>
     <string>r.glif</string>
+    <key>riel</key>
+    <string>riel.glif</string>
     <key>rightArrow</key>
     <string>rightA_rrow.glif</string>
     <key>s</key>
@@ -198,6 +202,8 @@
     <string>t_t_f.glif</string>
     <key>t_t_t</key>
     <string>t_t_t.glif</string>
+    <key>taka</key>
+    <string>taka.glif</string>
     <key>tbar</key>
     <string>tbar.glif</string>
     <key>thorn</key>

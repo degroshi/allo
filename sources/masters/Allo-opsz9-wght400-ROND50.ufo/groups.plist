@@ -36,6 +36,8 @@
       <string>Cdotaccent</string>
       <string>Ccaron</string>
       <string>uni0421</string>
+      <string>cedi</string>
+      <string>coloncurrency</string>
     </array>
     <key>public.kern1.D</key>
     <array>
@@ -89,6 +91,7 @@
       <string>uni0401</string>
       <string>uni0400</string>
       <string>Sigma</string>
+      <string>Xi</string>
     </array>
     <key>public.kern1.Ecyrillic</key>
     <array>
@@ -109,6 +112,7 @@
       <string>Gbreve</string>
       <string>Gdotaccent</string>
       <string>Gcommaaccent</string>
+      <string>guarani</string>
     </array>
     <key>public.kern1.H</key>
     <array>
@@ -198,6 +202,7 @@
       <string>uni041A</string>
       <string>uni049A</string>
       <string>uni040C</string>
+      <string>kip</string>
     </array>
     <key>public.kern1.L</key>
     <array>
@@ -693,6 +698,7 @@
       <string>scommaaccent</string>
       <string>uni0432</string>
       <string>uni0455</string>
+      <string>rupee</string>
     </array>
     <key>public.kern1.seven</key>
     <array>
@@ -978,6 +984,7 @@
       <string>uni04BB</string>
       <string>uni0452</string>
       <string>uni045B</string>
+      <string>rupee</string>
       <string>uni0406.1</string>
     </array>
     <key>public.kern2.C</key>
@@ -1016,6 +1023,9 @@
       <string>uni0404</string>
       <string>uni04D8</string>
       <string>uni04E8</string>
+      <string>cedi</string>
+      <string>coloncurrency</string>
+      <string>guarani</string>
     </array>
     <key>public.kern2.Dcroat</key>
     <array>

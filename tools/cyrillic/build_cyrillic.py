@@ -29,6 +29,7 @@ from ufoLib2.objects import Anchor, Component, Contour, Glyph, Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from allo import ROOT, masters as designspace_masters, radius  # noqa: E402
+import drawn  # noqa: E402
 import kerning  # noqa: E402
 from inter import Inter, reverse_contour  # noqa: E402
 from outline import align, find_crotches, point_crotches, union  # noqa: E402
@@ -183,13 +184,26 @@ inter('lari', 0x20BE, 'lari', ('O', 'O'))
 # Degroshi's extras (branch degroshi, not in the Cyrillic PR): ₮ for USDT, Σ for «ΣНакл»
 inter('tugrik', 0x20AE, 'tugrik', ('T', 'T'))
 inter('Sigma', 0x03A3, 'Sigma', ('E', 'E'))
+# Degroshi's currency signs: Inter's drawings, and ֏ ৳ ៛, which Inter lacks, built from Inter's parts (drawn.py)
+inter('manat', 0x20BC, 'manat', ('n', 'n'), make='plumb')
+bar('cedi', 0x20B5, 'C', 'cedi')
+bar('coloncurrency', 0x20A1, 'C', 'coloncurrency')
+bar('guarani', 0x20B2, 'G', 'guarani')
+inter('kip', 0x20AD, 'kip', ('K', 'K'), union=False)
+R['rupee'] = dict(uni=0x20A8, kind='pair', parts=('R', 's'), source='rupee', inter_parts=('R', 's'))
+inter('Xi', 0x039E, 'Xi', ('E', 'E'))
+inter('dram', 0x058F, drawn.dram, ('U', 'hryvnia'))
+inter('taka', 0x09F3, drawn.taka, ('hryvnia', 'hryvnia'), make='unflat', bend_cap=True)
+inter('riel', 0x17DB, drawn.riel, ('J', 'o'), bend_cap=True)
 # alternates
 ref('uni0406.1', None, 'I.1')
 ref('uni0407.1', None, 'Idieresis.1')
 ref('uni0430.1', None, 'a.1')
 
 ORDER = list(R)
-POSTSCRIPT = {'tenge': 'uni20B8', 'lari': 'uni20BE', 'tugrik': 'uni20AE'}
+POSTSCRIPT = {'tenge': 'uni20B8', 'lari': 'uni20BE', 'tugrik': 'uni20AE', 'manat': 'uni20BC', 'cedi': 'uni20B5',
+              'coloncurrency': 'colonmonetary', 'guarani': 'uni20B2', 'kip': 'uni20AD', 'rupee': 'uni20A8',
+              'dram': 'uni058F', 'taka': 'uni09F3', 'riel': 'uni17DB'}
 
 
 # ------------------------------------------------------------------------------------- geometry
@@ -323,7 +337,7 @@ class Master:
         return self._delta[ref]
 
     def inter_parts(self, source):
-        g = self.inter.decomposed_at(source, self.loc)
+        g = source(self.inter, self.loc) if callable(source) else self.inter.decomposed_at(source, self.loc)
         return [to_cubic(c) for c in g['contours']], g['width'], dict(g['anchors'])
 
     def heights(self):
@@ -471,8 +485,28 @@ def flag(m, contours, width):
     return [[(x, lift(y), t) for x, y, t in c] for c in contours], width
 
 
+def plumb(m, contours, width):
+    """Lines within 2 units of vertical made vertical (Inter's ₼ leans its inner right edge 1 unit)."""
+    out = []
+    for c in contours:
+        c = list(c)
+        for i, (x, y, t) in enumerate(c):
+            if t != 'line':
+                continue
+            px, py, pt = c[i - 1]
+            if pt is not None and 0 < abs(x - px) <= 2 and abs(y - py) > 50:
+                c[i] = (px, y, t)
+        out.append(c)
+    return out, width
+
+
+def unflat(m, contours, width):
+    """unflatten on every contour (f's flat-ended hook at opsz 32, in ৳)."""
+    return [unflatten(c) for c in contours], width
+
+
 MAKERS = {'straight_u': straight_u, 'upturn': upturn, 'join': join, 'lje': lje,
-          'ascender': ascender, 'descender': descender, 'flag': flag}
+          'ascender': ascender, 'descender': descender, 'flag': flag, 'unflat': unflat, 'plumb': plumb}
 
 
 def sharp_inter(m, spec):
@@ -745,21 +779,24 @@ class Builder:
                 out[name][r] = to_glyph(name, spec, [], width, anchors, [(base, (0, 0)), (part, (0, 0))])
 
     def build_pair(self, m, name, spec, ronds, out):
-        """Ы = Ь + I as components, the gap between them Inter's, Allo's spacing on the outer sides."""
+        """Ы = Ь + I (₨ = R + s) as components, the gap between them Inter's, Allo's spacing on the outer
+        sides."""
         left, right = spec['parts']
         ig = m.inter.glyph_at(spec['source'], m.loc)
         offs = dict((c[0], c[1][4]) for c in ig['components'])
-        ileft = 'Softsign-cy' if left == 'uni042C' else 'softsigncyrillic'
-        iright = 'I' if right == 'I' else 'idotless'
+        ileft, iright = spec.get('inter_parts') or (
+            'Softsign-cy' if left == 'uni042C' else 'softsigncyrillic', 'I' if right == 'I' else 'idotless')
         il = m.inter.decomposed_at(ileft, m.loc)
         ir = m.inter.decomposed_at(iright, m.loc)
         gap = (offs[iright] + bbox(ir['contours'])[0]) - bbox(il['contours'])[2]
+        # measured on the ROND 0 outlines, so the advance is the same at every ROND (rounding R's leg
+        # would move its right edge, and text would reflow as ROND changes)
+        f0 = m.fonts[0]
+        lc = ([[(p.x, p.y, p.type) for p in c.points] for c in out[left][0].contours] if left in out
+              else ufo_glyph_contours(f0, left))
+        x = round(bbox(lc)[2] + gap - bbox(ufo_glyph_contours(f0, right))[0])
         for r in ronds:
             f = m.fonts[r]
-            lg = out[left][r]
-            lc = [[(p.x, p.y, p.type) for p in c.points] for c in lg.contours]
-            rgc = ufo_glyph_contours(f, right)
-            x = round(bbox(lc)[2] + gap - bbox(rgc)[0])
             width = x + f[right].width
             anchors = {}
             out[name][r] = to_glyph(name, spec, [], width, anchors, [(left, (0, 0)), (right, (x, 0))])
@@ -869,7 +906,8 @@ def shifted(g, d, widths):
     return n
 
 
-OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari|tugrik|Sigma)$')
+OURS = re.compile(r'^(uni04[0-9A-F]{2}|tenge|lari|tugrik|Sigma|manat|cedi|coloncurrency|guarani|kip|rupee|Xi|'
+                  r'dram|taka|riel)(\..+)?$')
 
 
 def write(font, glyphs, order_after='eth'):

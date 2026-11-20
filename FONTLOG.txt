@@ -1,0 +1,33 @@
+FONTLOG for Allo (branch degroshi of degroshi/allo)
+===================================================
+
+Allo is Josh Puckett's typeface, made from Inter. This branch is Allo with
+additions by Degroshi, under the same licence (SIL Open Font License 1.1,
+OFL.txt).
+
+
+Credits
+-------
+
+Glyph outlines adapted from Inter 4.1, © The Inter Project Authors, SIL OFL 1.1
+(https://github.com/rsms/inter).
+
+- Allo: Josh Puckett (https://joshpuckett.me), from Inter.
+- Cyrillic, ₸ ₾ ₮ Σ and the currency signs below: Degroshi
+  (https://github.com/degroshi), adapted from Inter 4.1's drawings.
+
+
+Changes
+-------
+
+2026-11  Currency signs, so every amount Degroshi shows is set in Allo:
+         ₼ ₵ ₡ ₲ ₭ ₨ Ξ, adapted from Inter 4.1's drawings; ֏ ৳ ៛, which
+         Inter does not have, built from Inter 4.1's parts (U, f, o, ɂ, J
+         and ₴'s bars; tools/cyrillic/drawn.py). Fixed a fold in з's waist
+         (Bold, ExtraBold and Black Oblique; Black around ROND 30).
+2026-11  ₮ (U+20AE) and Σ (U+03A3); typed arrows (-> => <- ...) moved from
+         calt to dlig, so typed text is never rewritten.
+2026-11  Cyrillic: all of U+0400–045F, Ґ ґ and the Kazakh letters, with ₸
+         and ₾, in every master, static and oblique (tools/cyrillic).
+
+How the additions are made: tools/cyrillic/README.md.

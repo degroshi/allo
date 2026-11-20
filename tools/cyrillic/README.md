@@ -5,7 +5,8 @@ compiles the sources as they are); they record how the Cyrillic outlines were ma
 remade or extended the same way.
 
 Scope: the whole of U+0400–045F (Ukrainian, Russian, Belarusian, Bulgarian, Serbian, Macedonian), Ґ ґ,
-the Kazakh letters, ₸ and ₾ (116 characters).
+the Kazakh letters, ₸ and ₾ (116 characters). Branch `degroshi` adds ₮ Σ and the currency signs
+₼ ֏ ₵ ₡ ₲ ₭ ৳ ៛ ₨ Ξ, made the same way (see the end of this file).
 
 ## Method
 
@@ -48,7 +49,7 @@ the opsz 14, wght 400 master. So the masters interpolate. opsz 9 is opsz 14 move
 10 and 30 layers at wght 580 and 900.
 
 A few glyphs keep overlapping contours, because removing the overlap gives different structures in
-different masters: Ф ф я Э э. They carry `public.truetype.overlap`, so rasterisers that look for the
+different masters: Ф ф я Э э (and ₭). They carry `public.truetype.overlap`, so rasterisers that look for the
 flag treat the overlap properly. A bar's ends inside the letter it crosses are not rounded, so no
 nick shows where it leaves the stroke.
 
@@ -70,6 +71,8 @@ of H's corners (64.5 at opsz 14, wght 400; about 0.35 × stem).
 - Where Inter joins a bowl to a stem with a short flat spur (b, d, p, q), ROND 0 keeps the spur and
   ROND 50 and up replace it with a concave notch at the stem.
 - ROND 0 keeps every fillet's points (0.0145 units between two lines, none where a curve meets).
+- Where a fillet's tangents meet behind it (an almost straight join, slanted in an oblique: з's
+  waist), its handles take a third of the chord instead, so the curve can't fold back.
 
 `validate_rounding.py 14 400` unrounds each Latin glyph's ROND 0 outline, rounds it again, and
 compares the result with Allo's ROND 0, 50 and 100 masters. In most letters every point matches to
@@ -114,3 +117,22 @@ git -C ../inter-src sparse-checkout set --no-cone '/src/*.glyphspackage/'
 ```
 
 `INTER_SRC` points elsewhere if Inter's sources live somewhere else.
+
+## Currency signs (branch `degroshi`)
+
+- ₼ ₭ Ξ (and ₮ Σ): Inter's outlines, as the Inter kind above (₼'s inner leg, which Inter leans by a
+  unit, set upright; ₭'s parts left overlapping).
+- ₵ ₡ ₲: Allo's C and G with Inter's strokes as a bar glyph, as Є; ₨: Allo's R and s at Inter's gap,
+  as Ы.
+- ֏ ৳ ៛, which Inter doesn't have, are built in `drawn.py` from Inter's own parts at each master's
+  Inter location, then go through the same spacing and rounding as the rest:
+  - ֏: U turned over, its left leg stopping level with the upper bar, and ₴'s two bars across the
+    right leg;
+  - ৳: f's stem and hook turned round, a bar where f's crossbar is, and a bowl made of three
+    quarters of o, open at the top left (narrowed with its strokes kept);
+  - ៛: the loop of ɂ, squashed with its strokes kept and turned round, on a stem that ends in J's
+    hook, with a bar across the stem, after the Latin-styled riel of Rockwell and Khmer Sangam.
+
+  The bars are as thick as ₴'s. At Black the counters keep at least 0.6–0.7 of their source's.
+
+Glyph outlines adapted from Inter 4.1, © The Inter Project Authors, SIL OFL 1.1 (FONTLOG.txt).

@@ -254,6 +254,8 @@
     <string>W_circumflex.glif</string>
     <key>X</key>
     <string>X_.glif</string>
+    <key>Xi</key>
+    <string>X_i.glif</string>
     <key>Y</key>
     <string>Y_.glif</string>
     <key>Yacute</key>
@@ -422,6 +424,10 @@
     <string>ccircumflex.glif</string>
     <key>cdotaccent</key>
     <string>cdotaccent.glif</string>
+    <key>cedi</key>
+    <string>cedi.glif</string>
+    <key>cedi.bar</key>
+    <string>cedi.bar.glif</string>
     <key>cedilla</key>
     <string>cedilla.glif</string>
     <key>cedillacomb</key>
@@ -440,6 +446,10 @@
     <string>colon.glif</string>
     <key>colon.case</key>
     <string>colon.case.glif</string>
+    <key>coloncurrency</key>
+    <string>coloncurrency.glif</string>
+    <key>coloncurrency.bar</key>
+    <string>coloncurrency.bar.glif</string>
     <key>comma</key>
     <string>comma.glif</string>
     <key>commaaccent</key>
@@ -506,6 +516,8 @@
     <string>downA_rrow.glif</string>
     <key>downArrowHead</key>
     <string>downA_rrowH_ead.glif</string>
+    <key>dram</key>
+    <string>dram.glif</string>
     <key>e</key>
     <string>e.glif</string>
     <key>eacute</key>
@@ -648,6 +660,10 @@
     <string>greaterequal.glif</string>
     <key>greaterequal.case</key>
     <string>greaterequal.case.glif</string>
+    <key>guarani</key>
+    <string>guarani.glif</string>
+    <key>guarani.bar</key>
+    <string>guarani.bar.glif</string>
     <key>guillemetleft</key>
     <string>guillemetleft.glif</string>
     <key>guillemetright</key>
@@ -716,6 +732,8 @@
     <string>kcommaaccent.glif</string>
     <key>kgreenlandic</key>
     <string>kgreenlandic.glif</string>
+    <key>kip</key>
+    <string>kip.glif</string>
     <key>l</key>
     <string>l.glif</string>
     <key>l.ss02</key>
@@ -778,6 +796,8 @@
     <string>macron.glif</string>
     <key>macroncomb</key>
     <string>macroncomb.glif</string>
+    <key>manat</key>
+    <string>manat.glif</string>
     <key>micro</key>
     <string>micro.glif</string>
     <key>minus</key>
@@ -970,6 +990,8 @@
     <string>registered.glif</string>
     <key>returnsymbol</key>
     <string>returnsymbol.glif</string>
+    <key>riel</key>
+    <string>riel.glif</string>
     <key>rightArrow</key>
     <string>rightA_rrow.glif</string>
     <key>rightArrow.case</key>
@@ -982,6 +1004,8 @@
     <string>ringcomb.glif</string>
     <key>ringcomb.uc</key>
     <string>ringcomb.uc.glif</string>
+    <key>rupee</key>
+    <string>rupee.glif</string>
     <key>s</key>
     <string>s.glif</string>
     <key>sacute</key>
@@ -1062,6 +1086,8 @@
     <string>t_t_f.glif</string>
     <key>t_t_t</key>
     <string>t_t_t.glif</string>
+    <key>taka</key>
+    <string>taka.glif</string>
     <key>tbar</key>
     <string>tbar.glif</string>
     <key>tcaron</key>

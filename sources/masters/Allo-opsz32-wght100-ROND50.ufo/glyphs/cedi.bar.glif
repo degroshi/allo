@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="cedi.bar" format="2">
+  <advance width="1314"/>
+  <outline>
+    <contour>
+      <point x="623.0" y="-181.64250009552453"/>
+      <point x="627.3574999044755" y="-186.0"/>
+      <point x="639.6750000000001" y="-186.0" type="curve"/>
+      <point x="653.3249999999999" y="-186.0" type="line"/>
+      <point x="665.6425000955245" y="-186.0"/>
+      <point x="670.0" y="-181.64250009552453"/>
+      <point x="670.0" y="-169.325" type="curve"/>
+      <point x="670.0" y="1659.325" type="line"/>
+      <point x="670.0" y="1671.6425000955246"/>
+      <point x="665.6425000955245" y="1676.0"/>
+      <point x="653.3249999999999" y="1676.0" type="curve"/>
+      <point x="639.6750000000001" y="1676.0" type="line"/>
+      <point x="627.3574999044755" y="1676.0"/>
+      <point x="623.0" y="1671.6425000955246"/>
+      <point x="623.0" y="1659.325" type="curve"/>
+      <point x="623.0" y="-169.325" type="line"/>
+    </contour>
+  </outline>
+</glyph>

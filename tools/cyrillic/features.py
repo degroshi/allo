@@ -9,7 +9,8 @@ Run again on an edited file, it removes what it added before adding it again.
 """
 import re
 
-OURS = re.compile(r'^(uni04[0-9A-F]{2}(\..+)?|tenge|lari|tugrik|Sigma)$')
+OURS = re.compile(r'^(uni04[0-9A-F]{2}|tenge|lari|tugrik|Sigma|manat|cedi|coloncurrency|guarani|kip|rupee|Xi|'
+                  r'dram|taka|riel)(\..+)?$')
 MARKER = '# Cyrillic'
 
 

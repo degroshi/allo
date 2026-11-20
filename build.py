@@ -278,20 +278,22 @@ ZIP_README = '''
                                 capitals: (HELLO) [A–Z] ¿QUÉ?
     liga   Ligatures            tt ff tf ft share one crossbar
     calt   Contextual           automatic, on by default:
-             typed arrows       a -> b   a <- b   a --> b
              lifting            (A) [1] −$4.50 +2% ¡HOLA! @ACME
+    dlig   Typed arrows         off by default: a -> b   a <- b   a --> b
     kern   Kerning
 
     Arrows need a space or nothing either side, so p->next stays code.
     Letter-spacing turns ligatures off in most browsers.
 
 
-  CHARACTERS  (694)
+  CHARACTERS  (704)
     Latin        249 letters: A–Z a–z, accented forms, ẞ ß Æ æ Œ œ
     Cyrillic     114 letters: U+0400–045F (А–Я а–я, Ѐ–Џ ѐ–џ), Ґ, Ә Ғ Қ Ң Ө Ұ Ү Һ
+    Greek        Σ Ξ
     Figures      0–9  ⁰¹²³⁴⁵⁶⁷⁸⁹  ₀₁₂₃₄₅₆₇₈₉  ½ ⅓ ¼ ⅔ ¾ ⅛ ⅜ ⅝ ⅞
     Punctuation  ! ? ¡ ¿ … · • † ‡ § ¶ ‘ ’ “ ” « » ‹ › ‐ – — ‒
     Currency     $ ¢ £ ¥ € ₹ ₩ ₽ ₺ ₪ ฿ ₫ ₴ ₸ ₾ ₮ ₦ ₱ ₿ ƒ
+                 ₼ ֏ ₵ ₡ ₲ ₭ ৳ ៛ ₨
     Math         + − × ÷ = ≠ ≈ < > ≤ ≥ ± ∞ ¬ ° ′ ″ ‰ № ℃ ℉
     Arrows       ← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙ ⇐ ⇒ ⇔ ↩ ↵ ↻ ↺
     Keys         ⌘ ⌥ ⇧ ⌃ ⎋ ⇥ ⌫ ⌦ ⏎ ␣ ⌕

@@ -523,8 +523,13 @@ def round_contour(contour, plan, R, rond, stem=None):
             tB = seg_tangent_start(nxt) if nxt[0] == 'curve' and math.dist(B, V) > 1e-9 else seg_tangent_start(segs[i])
             X = line_intersection(A, tA, B, tB) or V
             dA, dB = math.dist(A, X), math.dist(B, X)
-            # both handles one length: the arc factor times the mean distance to the tangents' meeting point
-            h = handle_factor(signed_turn(tA, tB)) * (1.0 if circle[i] else SQUIRCLE) * (dA + dB) / 2
+            if dot(sub(X, A), tA) < 0 or dot(sub(B, X), tB) < 0:
+                # the tangents meet behind the fillet (an almost straight join, slanted in an oblique):
+                # the arc rule would throw the handles far out, so they take a third of the chord
+                h = math.dist(A, B) / 3
+            else:
+                # both handles one length: the arc factor times the mean distance to the tangents' meeting point
+                h = handle_factor(signed_turn(tA, tB)) * (1.0 if circle[i] else SQUIRCLE) * (dA + dB) / 2
             h1 = add(A, mul(tA, h))
             h2 = sub(B, mul(tB, h))
             out.append(('fillet', [A, h1, h2, B]))

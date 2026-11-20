@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="guarani.bar" format="2">
+  <advance width="1560"/>
+  <outline>
+    <contour>
+      <point x="727.0" y="-217.99621086964828"/>
+      <point x="727.0037891303517" y="-218.0"/>
+      <point x="727.0145" y="-218.0" type="curve"/>
+      <point x="847.9855" y="-218.0" type="line"/>
+      <point x="847.9962108696483" y="-218.0"/>
+      <point x="848.0" y="-217.99621086964828"/>
+      <point x="848.0" y="-217.9855" type="curve"/>
+      <point x="848.0" y="1707.9855" type="line"/>
+      <point x="848.0" y="1707.9962108696484"/>
+      <point x="847.9962108696483" y="1708.0"/>
+      <point x="847.9855" y="1708.0" type="curve"/>
+      <point x="727.0145" y="1708.0" type="line"/>
+      <point x="727.0037891303517" y="1708.0"/>
+      <point x="727.0" y="1707.9962108696484"/>
+      <point x="727.0" y="1707.9855" type="curve"/>
+      <point x="727.0" y="-217.9855" type="line"/>
+    </contour>
+  </outline>
+</glyph>
